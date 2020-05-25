@@ -15,7 +15,10 @@ npm-debug.*
 build/
 dist/
 
+vercel
+
 web-build/
+
 web-report/
 
 # macOS
