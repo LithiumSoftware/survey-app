@@ -1,0 +1,16 @@
+version: "1.0"
+services:
+  postgres:
+    image: postgres:10.3
+    restart: always
+    environment:
+      - POSTGRES_DB=survey-app
+      - POSTGRES_USER=survey_app
+      - POSTGRES_PASSWORD=survey-app
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+volumes:
+  postgres: ~

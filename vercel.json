@@ -1,0 +1,9 @@
+{
+  "routes": [
+    {
+      "src": "/api/graphql",
+      "dest": "/api/graphql.ts"
+    },
+    { "src": "/.*", "dest": "/web-build/index.html" }
+  ]
+}
