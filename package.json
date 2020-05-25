@@ -1,26 +1,113 @@
 {
-  "main": "node_modules/expo/AppEntry.js",
+  "name": "survey-app",
+  "version": "1.0.0",
+  "main": "index",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "pretify": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,md}\" \"./**/*.{js,jsx,ts,tsx,json,md}\"",
+    "prettier": "prettier --list-different \"./src/**/*.{js, jsx,ts,tsx,json,md}\" \"./**/*.{js,jsx,ts,tsx,json,md}\"",
+    "lint": "eslint './src/**/*.{js, jsx, ts,tsx}'",
+    "prelint": "yarn prettier",
+    "//": "Internal references to binaries for use in other scripts",
+    "internal:prettier": "prettier",
+    "internal:eslint": "eslint",
+    "internal:test": "CI=true react-scripts test --bail --passWithNoTests --findRelatedTests",
+    "clean": "rm -rf ./dist && rm -rf tsconfig.build.tsbuildinfo",
+    "codegen": "graphql-codegen --config codegen.yml"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,js}": [
+      "yarn internal:prettier --list-different",
+      "yarn internal:eslint --max-warnings=0",
+      "yarn internal:test "
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "dependencies": {
+    "@apollo/react-common": "^3.1.3",
+    "@apollo/react-hooks": "^3.1.3",
+    "@apollo/react-ssr": "^3.1.3",
+    "@react-navigation/drawer": "^5.3.4",
+    "@react-navigation/native": "^5.1.3",
+    "@react-navigation/stack": "^5.2.6",
+    "apollo-cache-inmemory": "^1.6.5",
+    "apollo-client": "^2.6.8",
+    "apollo-link-http": "^1.5.16",
     "expo": "~37.0.3",
+    "graphql": "^14.5.8",
     "react": "~16.9.0",
+    "react-apollo": "^3.1.4",
+    "react-apollo-hooks": "^0.5.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
+    "react-native-collapsible": "^1.5.2",
+    "react-native-gesture-handler": "~1.6.0",
+    "react-native-paper": "^3.6.0",
+    "react-native-reanimated": "~1.7.0",
+    "react-native-render-html": "^4.2.0",
+    "react-native-safe-area-context": "0.7.3",
     "react-native-screens": "~2.2.0",
-    "react-native-web": "~0.11.7"
+    "react-native-svg": "11.0.1",
+    "react-native-tab-view": "^2.13.0",
+    "react-native-vector-icons": "^6.6.0",
+    "react-native-web": "~0.11.7",
+    "react-native-webview": "8.1.1",
+    "react-native-webview-quilljs": "^2.0.0",
+    "react-scripts": "^3.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
+    "@expo/webpack-config": "^0.12.9",
+    "@graphql-codegen/cli": "^1.13.1",
+    "@graphql-codegen/typescript": "^1.13.1",
+    "@graphql-codegen/typescript-operations": "^1.13.1",
+    "@graphql-codegen/typescript-react-apollo": "^1.13.1",
     "@types/react": "~16.9.23",
     "@types/react-native": "~0.61.17",
+    "@types/styled-components": "^5.0.1",
+    "@types/yup": "^0.26.34",
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
+    "babel-plugin-graphql-tag": "^2.5.0",
+    "babel-plugin-styled-components": "^1.10.7",
     "babel-preset-expo": "~8.1.0",
-    "typescript": "~3.8.3"
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-flowtype": "^5.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^4.0.2",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.4",
+    "prettier": "^2.0.5",
+    "styled-components": "^5.1.0",
+    "typescript": "^3.9.2"
   },
   "private": true
 }

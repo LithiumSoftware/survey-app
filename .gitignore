@@ -1,14 +1,26 @@
+# dependencies
 node_modules/**/*
-.expo/*
 npm-debug.*
+
+# expo
+.expo/*
 *.jks
 *.p8
 *.p12
 *.key
 *.mobileprovision
 *.orig.*
+
+# production
+build/
+dist/
 web-build/
+
 web-report/
 
 # macOS
 .DS_Store
+
+# logs
+yarn-debug.log
+yarn-error.log
