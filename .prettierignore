@@ -1,0 +1,12 @@
+# `yarn` has its own opinions on `package.json`, so `prettier` should ignore it
+package.json
+yarn.lock
+
+# Non-committed directories
+node_modules
+dist
+.expo
+web-build
+
+# misc
+.vscode/
