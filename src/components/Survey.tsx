@@ -33,7 +33,7 @@ const StyledIconButton = styled(IconButton)`
 `;
 
 const SurveyTitle = styled(Text)`
-  font-size: 22px;
+  font-size: 24px;
   font-weight: bold;
 `;
 
