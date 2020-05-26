@@ -3,8 +3,14 @@ import styled from "styled-components";
 import { View, Text } from "react-native";
 import { Button, IconButton } from "react-native-paper";
 import { MessageBulleted } from "../assets/icons";
+import NormalizeSize from "../utils/NormalizeSize";
 
-const Survey = ({ survey }: { survey: any }) => {
+interface Props {
+  navigation: any;
+  survey: any;
+}
+
+const Survey = ({ navigation, survey }: Props) => {
   const isActive = survey.published === true && survey.open === true;
   const isClosed = survey.published === true && survey.open === false;
 
@@ -14,7 +20,6 @@ const Survey = ({ survey }: { survey: any }) => {
         <StyledIconButton
           color="black"
           icon={() => <MessageBulleted fill={"black"} />}
-          onPress={() => {}}
         />
         <StyledViewColumn>
           <SurveyTitle>{survey.title}</SurveyTitle>
@@ -23,7 +28,20 @@ const Survey = ({ survey }: { survey: any }) => {
           </QuestionsDetail>
         </StyledViewColumn>
       </StyledViewRow>
-      <TakeSurveyButton mode="contained" onPress={() => {}}>
+      <TakeSurveyButton
+        mode="text"
+        color="white"
+        onPress={() => {
+          isActive
+            ? navigation.navigate("AnswerSurvey", {
+                survey: survey,
+                questionIndex: 0,
+              })
+            : isClosed
+            ? console.log("results")
+            : console.log("active survey");
+        }}
+      >
         {isActive ? "TAKE SURVEY" : isClosed ? "RESULTS" : "ACTIVE SURVEY"}
       </TakeSurveyButton>
       {isActive && (
@@ -36,55 +54,59 @@ const Survey = ({ survey }: { survey: any }) => {
 };
 
 const StyledIconButton = styled(IconButton)`
-  margin-top: -3px;
+  margin-top: ${NormalizeSize(-3)}px;
 `;
 
 const SurveyTitle = styled(Text)`
-  font-size: 24px;
+  font-size: ${NormalizeSize(24)}px;
   font-weight: bold;
 `;
 
 const QuestionsDetail = styled(Text)`
-  font-size: 12px;
-  padding-top: 4px;
+  font-size: ${NormalizeSize(12)}px;
+  padding-top: ${NormalizeSize(4)}px;
 `;
 
 const TakeSurveyButton = styled(Button)`
-  border-radius: 20px;
-  color: white;
+  height: ${NormalizeSize(36)}px;
+  justify-content: center;
   background-color: #ffb900;
-  margin: 8px;
+  border-radius: ${NormalizeSize(20)}px;
+  margin-top: ${NormalizeSize(8)}px;
+  margin-left: ${NormalizeSize(8)}px;
+  margin-right: ${NormalizeSize(8)}px;
 `;
 
 const CloseSurveyButton = styled(Button)`
-  border-radius: 20px;
-  margin-top: 8px;
-  margin-left: 8px;
-  margin-right: 8px;
+  height: ${NormalizeSize(36)}px;
+  justify-content: center;
+  border-radius: ${NormalizeSize(20)}px;
+  margin-top: ${NormalizeSize(8)}px;
+  margin-left: ${NormalizeSize(8)}px;
+  margin-right: ${NormalizeSize(8)}px;
 `;
 
 const StyledViewRow = styled(View)`
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
-  padding-top: 4px;
-  padding-bottom: 20px;
+  padding-top: ${NormalizeSize(4)}px;
+  padding-bottom: ${NormalizeSize(20)}px;
 `;
 
 const StyledViewColumn = styled(View)`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  padding-left: 8px;
+  padding-left: ${NormalizeSize(8)}px;
 `;
 
 const Container = styled(View)`
   justify-content: center;
   background-color: #f2f2f2;
-  border-radius: 20px;
-  padding: 8px;
-  margin: 8px;
-  height: 200px;
+  border-radius: ${NormalizeSize(20)}px;
+  padding: ${NormalizeSize(8)}px;
+  margin-bottom: ${NormalizeSize(16)}px;
 `;
 
 export default Survey;

@@ -1,5 +1,5 @@
 import React from "react";
-import MainContainer from "./MainContainer";
+import MainScrollableContainer from "./MainScrollableContainer";
 import Header from "./Header";
 import Title from "./Title";
 import Survey from "./Survey";
@@ -152,7 +152,7 @@ const surveys = [
   },
 ];
 
-const Surveys = () => {
+const Surveys = ({ navigation }) => {
   const activeSurveys = surveys.filter(
     (survey) => survey.published === true && survey.open === true
   );
@@ -163,27 +163,27 @@ const Surveys = () => {
 
   return (
     <>
-      <MainContainer>
+      <MainScrollableContainer>
         <Header />
         <Title>Active Surveys</Title>
         <View>
           {activeSurveys.map((survey) => (
-            <Survey survey={survey} />
+            <Survey key={survey.id} survey={survey} navigation={navigation} />
           ))}
         </View>
         <Title>Draft Surveys</Title>
         <View>
           {draftSurveys.map((survey) => (
-            <Survey survey={survey} />
+            <Survey key={survey.id} survey={survey} navigation={navigation} />
           ))}
         </View>
         <Title>Closed Surveys</Title>
         <View>
           {closedSurveys.map((survey) => (
-            <Survey survey={survey} />
+            <Survey key={survey.id} survey={survey} navigation={navigation} />
           ))}
         </View>
-      </MainContainer>
+      </MainScrollableContainer>
       <FABIcon icon={() => <Plus />} onPress={() => {}} />
     </>
   );

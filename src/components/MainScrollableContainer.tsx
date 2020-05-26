@@ -1,13 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { ScrollView } from "react-native";
+import NormalizeSize from "../utils/NormalizeSize";
 
-const MainContainer = (props) => (
+const MainScrollableContainer = (props: any) => (
   <Container
     contentContainerStyle={{
-      justifyContent: "center",
+      flexGrow: 1,
+      justifyContent: "space-evenly",
       alignItems: "stretch",
-      paddingBottom: 200,
+      paddingBottom: NormalizeSize(150),
     }}
   >
     {props.children}
@@ -18,9 +20,7 @@ const Container = styled(ScrollView)`
   display: flex;
   flex-direction: column;
   background-color: white;
-  padding-left: 5%;
-  padding-top: 10%;
-  padding-right: 5%;
+  padding: ${NormalizeSize(20)}px;
 `;
 
-export default MainContainer;
+export default MainScrollableContainer;

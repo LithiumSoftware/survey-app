@@ -1,6 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider as PaperProvider } from "react-native-paper";
+import { StatusBar } from "react-native";
 
 import { ApolloProvider } from "react-apollo";
 import { ApolloClient } from "apollo-client";
@@ -22,6 +23,7 @@ const MyApp = () => (
   <PaperProvider>
     <ApolloProvider client={client}>
       <NavigationContainer>
+        <StatusBar backgroundColor="white" barStyle="dark-content" />
         <Navigator />
       </NavigationContainer>
     </ApolloProvider>
