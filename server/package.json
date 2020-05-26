@@ -1,0 +1,31 @@
+{
+  "name": "nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "migrate": "npx sequelize --options-path=.sequelizerc db:migrate",
+    "seed": "npx sequelize --options-path=.sequelizerc db:seed:all",
+    "undo": "npx sequelize --options-path=.sequelizerc db:migrate:undo",
+    "undo_seed": "npx sequelize --options-path=.sequelizerc db:seed:undo:all",
+    "create_migration": "npx sequelize --options-path=.sequelizerc migration:create --name"
+  },
+  "dependencies": {
+    "apollo-server-micro": "^2.13.1",
+    "bcrypt": "^4.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "next": "^9.3.3",
+    "pg": "^8.2.1",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "sequelize": "^5.21.11"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.5",
+    "@types/react": "^16.9.35",
+    "sequelize-cli": "^5.5.1",
+    "typescript": "^3.9.3"
+  }
+}

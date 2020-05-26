@@ -27,3 +27,7 @@ web-report/
 # logs
 yarn-debug.log
 yarn-error.log
+
+# deploy
+.now
+.vercel
