@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index",
   "scripts": {
-    "now-build":"expo build:web && expo-optimize",
-    "dev": "expo start",
+    "now-build": "expo build:web && expo-optimize",
+    "dev": "expo start:web",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -15,12 +15,12 @@
     "prettier": "prettier --list-different \"./src/**/*.{js, jsx,ts,tsx,json,md}\" \"./**/*.{js,jsx,ts,tsx,json,md}\"",
     "lint": "eslint './src/**/*.{js, jsx, ts,tsx}'",
     "prelint": "yarn prettier",
+    "codegen": "graphql-codegen --config codegen.yml",
+    "clean": "rm -rf ./dist && rm -rf tsconfig.build.tsbuildinfo",
     "//": "Internal references to binaries for use in other scripts",
     "internal:prettier": "prettier",
     "internal:eslint": "eslint",
-    "internal:test": "CI=true react-scripts test --bail --passWithNoTests --findRelatedTests",
-    "clean": "rm -rf ./dist && rm -rf tsconfig.build.tsbuildinfo",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "internal:test": "CI=true react-scripts test --bail --passWithNoTests --findRelatedTests"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx,js}": [
@@ -81,8 +81,7 @@
     "react-native-web": "~0.11.7",
     "react-native-webview": "8.1.1",
     "react-native-webview-quilljs": "^2.0.0",
-    "react-scripts": "^3.4.1",
-    "sequelize": "^5.21.10"
+    "react-scripts": "^3.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
@@ -114,7 +113,6 @@
     "expo-optimize": "^0.1.29",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.4",
-    "pg": "^8.2.1",
     "prettier": "^2.0.5",
     "styled-components": "^5.1.0",
     "typescript": "^3.9.2"

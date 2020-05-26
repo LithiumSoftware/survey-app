@@ -1,10 +1,8 @@
 import { ApolloServer } from "apollo-server-micro";
-import { typeDefs, resolvers } from "../graphql/schema";
 import { verify } from "jsonwebtoken";
 
-const db = require("../graphql/models");
-
-console.log("Config", { env: process.env });
+import { typeDefs, resolvers } from "../../schema";
+import db from "../../models";
 
 const apolloServer = new ApolloServer({
   typeDefs,

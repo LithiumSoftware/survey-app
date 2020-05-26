@@ -4,8 +4,11 @@ yarn.lock
 
 # Non-committed directories
 node_modules
+.next
 dist
 .expo
+.expo-shared
+.vercel
 web-build
 
 # misc

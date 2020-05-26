@@ -9,7 +9,7 @@ import { HttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 
 const link = new HttpLink({
-  uri: "http://192.168.1.2:3000/api/graphql", // Server URL (must be absolute)
+  uri: "http://survey-app-server.lithiumsoftware.now.sh/api/graphql", // Server URL (must be absolute)
 });
 
 const client = new ApolloClient({
