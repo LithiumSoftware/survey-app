@@ -1,9 +1,8 @@
 import React from "react";
 import Surveys from "../components/Surveys";
 import ScreenProps from "./ScreenProps";
-import HeaderLogo from "../components/HeaderLogo";
 
-const SurveysScreen = ({ route, navigation }: ScreenProps) => (
+const SurveysScreen = ({ navigation }: ScreenProps) => (
   <Surveys navigation={navigation} />
 );
 

@@ -152,7 +152,7 @@ const surveys = [
   },
 ];
 
-const Surveys = ({ navigation }) => {
+const Surveys = ({ navigation }: { navigation: any }) => {
   const activeSurveys = surveys.filter(
     (survey) => survey.published === true && survey.open === true
   );
