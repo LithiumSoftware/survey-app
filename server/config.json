@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "survey_app",
+    "password": "survey_app",
+    "database": "survey_app",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "preview": {
+    "username": "survey_app",
+    "password": "UQEsbTxOMH4CA6cBEFIj",
+    "database": "survey_app_preview",
+    "host": "survey-app-server-instance-1.cccreera0i2z.us-east-1.rds.amazonaws.com",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "survey_app",
+    "password": "UQEsbTxOMH4CA6cBEFIj",
+    "database": "survey_app",
+    "host": "survey-app-server-instance-1.cccreera0i2z.us-east-1.rds.amazonaws.com",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  }
+}
