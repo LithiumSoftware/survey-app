@@ -46,7 +46,7 @@ const StyledViewRow = styled(View)`
   justify-content: flex-start;
   background-color: #e8e8e8;
   align-items: center;
-  padding: ${NormalizeSize(20)}px;
+  padding: ${NormalizeSize(18)}px;
   margin-bottom: ${NormalizeSize(16)}px;
 `;
 

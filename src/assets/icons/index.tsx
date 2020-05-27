@@ -42,3 +42,10 @@ export const CheckCircle = ({ height, width, fill = "#27AE60" }: IconProps) => (
     path="M10,17L5,12L6.41,10.58L10,14.17L17.59,6.58L19,8M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
   />
 );
+
+export const BackArrow = ({ fill = "#757575" }: IconProps) => (
+  <Icon
+    fill={fill}
+    path="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"
+  />
+);

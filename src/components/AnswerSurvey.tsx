@@ -6,6 +6,7 @@ import Title from "../components/Title";
 import { View, Text } from "react-native";
 import { Button } from "react-native-paper";
 import NormalizeSize from "../utils/NormalizeSize";
+import HeaderBack from "./HeaderBack";
 
 interface Props {
   navigation: any;
@@ -17,64 +18,67 @@ const AnswerSurvey = ({ navigation, survey, questionIndex }: Props) => {
   const [selectedSelection, setSelectedSelection] = useState(-1);
 
   return (
-    <MainNonScrollableContainer>
-      <View>
-        <Title>{survey?.title}</Title>
-        <Container>
-          <StyledViewRow>
-            <QuestionNumber>{questionIndex + 1 + ")"}</QuestionNumber>
-            <QuestionTitle>
-              {survey?.questions?.[questionIndex]?.text}
-            </QuestionTitle>
-          </StyledViewRow>
-          {survey?.questions?.[questionIndex]?.selections?.map(
-            (selection: any, index: number) => (
-              <AnswerSelection
-                key={index}
-                selection={selection}
-                selectionIndex={index}
-                isSelected={index === selectedSelection}
-                changeSelected={(index) => {
-                  setSelectedSelection(
-                    index !== selectedSelection ? index : -1
-                  );
-                }}
-              />
-            )
-          )}
-        </Container>
-      </View>
-      <ButtonViewRow>
-        <StyledButton
-          mode="text"
-          color="#4f4f4f"
-          onPress={() => {
-            navigation.goBack();
-          }}
-        >
-          BACK
-        </StyledButton>
-        <StyledButton
-          mode="text"
-          color="#4f4f4f"
-          onPress={() => {
-            navigation.push("AnswerSurvey", {
-              survey: survey,
-              questionIndex: questionIndex + 1,
-            });
-          }}
-        >
-          NEXT
-        </StyledButton>
-      </ButtonViewRow>
-    </MainNonScrollableContainer>
+    <>
+      <HeaderBack navigation={navigation} />
+      <MainNonScrollableContainer>
+        <View>
+          <Title>{survey?.title}</Title>
+          <Container>
+            <StyledViewRow>
+              <QuestionNumber>{questionIndex + 1 + ")"}</QuestionNumber>
+              <QuestionTitle>
+                {survey?.questions?.[questionIndex]?.text}
+              </QuestionTitle>
+            </StyledViewRow>
+            {survey?.questions?.[questionIndex]?.selections?.map(
+              (selection: any, index: number) => (
+                <AnswerSelection
+                  key={index}
+                  selection={selection}
+                  selectionIndex={index}
+                  isSelected={index === selectedSelection}
+                  changeSelected={(index) => {
+                    setSelectedSelection(
+                      index !== selectedSelection ? index : -1
+                    );
+                  }}
+                />
+              )
+            )}
+          </Container>
+        </View>
+        <ButtonViewRow>
+          <StyledButton
+            mode="text"
+            color="#4f4f4f"
+            onPress={() => {
+              navigation.goBack();
+            }}
+          >
+            BACK
+          </StyledButton>
+          <StyledButton
+            mode="text"
+            color="#4f4f4f"
+            onPress={() => {
+              navigation.push("AnswerSurvey", {
+                survey: survey,
+                questionIndex: questionIndex + 1,
+              });
+            }}
+          >
+            NEXT
+          </StyledButton>
+        </ButtonViewRow>
+      </MainNonScrollableContainer>
+    </>
   );
 };
 
 const StyledViewRow = styled(View)`
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   padding-top: ${NormalizeSize(4)}px;
   padding-bottom: ${NormalizeSize(20)}px;
 `;

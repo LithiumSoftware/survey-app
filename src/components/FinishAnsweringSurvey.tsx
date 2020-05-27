@@ -6,6 +6,7 @@ import { CheckCircle } from "../assets/icons";
 import MainNonScrollableContainer from "../components/MainNonScrollableContainer";
 import Title from "../components/Title";
 import NormalizeSize from "../utils/NormalizeSize";
+import HeaderBack from "./HeaderBack";
 
 interface Props {
   navigation: any;
@@ -16,6 +17,7 @@ const FinishAnsweringSurvey = ({ navigation, survey }: Props) => {
   const questionsCount = survey?.questions?.length;
   return (
     <>
+      <HeaderBack navigation={navigation} />
       <MainNonScrollableContainer>
         <View>
           <Title>{survey?.title}</Title>

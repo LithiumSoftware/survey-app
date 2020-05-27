@@ -1,6 +1,6 @@
 import React from "react";
 import MainScrollableContainer from "./MainScrollableContainer";
-import Header from "./Header";
+import HeaderLogo from "./HeaderLogo";
 import Title from "./Title";
 import Survey from "./Survey";
 import { View } from "react-native";
@@ -164,7 +164,7 @@ const Surveys = ({ navigation }) => {
   return (
     <>
       <MainScrollableContainer>
-        <Header />
+        <HeaderLogo />
         <Title>Active Surveys</Title>
         <View>
           {activeSurveys.map((survey) => (

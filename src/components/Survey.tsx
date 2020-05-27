@@ -58,13 +58,18 @@ const StyledIconButton = styled(IconButton)`
 `;
 
 const SurveyTitle = styled(Text)`
-  font-size: ${NormalizeSize(24)}px;
-  font-weight: bold;
+  font-size: ${NormalizeSize(22)}px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  color: rgba(0, 0, 0, 0.87);
 `;
 
 const QuestionsDetail = styled(Text)`
-  font-size: ${NormalizeSize(12)}px;
+  font-size: ${NormalizeSize(10)}px;
   padding-top: ${NormalizeSize(4)}px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+  letter-spacing: ${NormalizeSize(1.5)}px;
 `;
 
 const TakeSurveyButton = styled(Button)`
