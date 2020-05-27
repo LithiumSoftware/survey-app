@@ -8,18 +8,18 @@
     "operatorsAliases": false
   },
   "preview": {
-    "username": "survey_app",
+    "username": "survey_db",
     "password": "UQEsbTxOMH4CA6cBEFIj",
-    "database": "survey_app_preview",
-    "host": "survey-app-server-instance-1.cccreera0i2z.us-east-1.rds.amazonaws.com",
+    "database": "survey_db_preview",
+    "host": "survey-app-db.cccreera0i2z.us-east-1.rds.amazonaws.com",
     "dialect": "postgres",
     "operatorsAliases": false
   },
   "production": {
-    "username": "survey_app",
+    "username": "survey_db",
     "password": "UQEsbTxOMH4CA6cBEFIj",
-    "database": "survey_app",
-    "host": "survey-app-server-instance-1.cccreera0i2z.us-east-1.rds.amazonaws.com",
+    "database": "survey_db",
+    "host": "survey-app-db.cccreera0i2z.us-east-1.rds.amazonaws.com",
     "dialect": "postgres",
     "operatorsAliases": false
   }
