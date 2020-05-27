@@ -4,7 +4,7 @@ documents:
   - "./graphql/mutations/*.ts"
   - "./graphql/queries/*.ts"
 generates:
-  ./graphql/generated/graphql.tsx:
+  ./graphql/generated/index.tsx:
     plugins:
       - "typescript"
       - "typescript-operations"

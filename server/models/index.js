@@ -5,7 +5,7 @@ import { Sequelize } from "sequelize";
 const config = require(__dirname + "/../config.json")[process.env.NODE_ENV];
 
 const sequelize = new Sequelize(
-  `postgres://${config.username}:${config.password}@postgres:5432/${config.database}`
+  `postgres://${config.username}:${config.password}@${config.host}:5432/${config.database}`
 );
 
 const db = {};

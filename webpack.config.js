@@ -8,5 +8,20 @@ module.exports = async function (env, argv) {
     argv
   );
 
+  if (config.mode === "development") {
+    config.devServer.proxy = {
+      "/**": {
+        target: {
+          host: "example.com",
+          protocol: "https:",
+          port: 443,
+        },
+        secure: false,
+        changeOrigin: true,
+        logLevel: "info",
+      },
+    };
+  }
+
   return config;
 };
