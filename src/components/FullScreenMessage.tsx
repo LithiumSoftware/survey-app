@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components";
-import { View, TouchableWithoutFeedback, Text } from "react-native";
+import styled from "styled-components/native";
+import { TouchableWithoutFeedback } from "react-native";
 import NormalizeSize from "../utils/NormalizeSize";
 import Title from "./Title";
 import { IconButton } from "react-native-paper";
@@ -34,7 +34,7 @@ const WhiteTitle = styled(Title)`
   color: #f8edd5;
 `;
 
-const Message = styled(Text)`
+const Message = styled.Text`
   font-size: ${NormalizeSize(22)}px;
   font-weight: 500;
   color: #bdbdbd;
@@ -50,7 +50,7 @@ const StyledIconButton = styled(IconButton)`
   margin-bottom: ${NormalizeSize(32)}px;
 `;
 
-const Container = styled(View)`
+const Container = styled.View`
   position: absolute;
   left: 0;
   top: 0;

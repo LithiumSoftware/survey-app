@@ -64,17 +64,17 @@ export const resolvers = {
         return db.user.findByPk(currentUserId).then((user) =>
           user && user.role === "ADMIN"
             ? db.survey.findAll({
-                order: [["title", "ASC"]],
+                order: [["createdAt", "ASC"]],
               })
             : db.survey.findAll({
                 where: { published: true },
-                order: [["title", "ASC"]],
+                order: [["createdAt", "ASC"]],
               })
         );
       } else {
         return db.survey.findAll({
           where: { published: true },
-          order: [["title", "ASC"]],
+          order: [["createdAt", "ASC"]],
         });
       }
     },

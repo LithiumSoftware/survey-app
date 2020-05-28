@@ -36,6 +36,7 @@ const Survey = ({ navigation, survey }: Props) => {
             ? navigation.navigate("AnswerSurvey", {
                 survey: survey,
                 questionIndex: 0,
+                selectedOptions: [],
               })
             : isClosed
             ? navigation.navigate("Results", {

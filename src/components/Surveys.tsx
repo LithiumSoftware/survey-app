@@ -111,7 +111,9 @@ const Surveys = ({ navigation }: { navigation: any }) => {
       <FullScreenMessage
         navigation={navigation}
         title="Lost connection!"
-        icon={<NotConnected height={81} width={100} />}
+        icon={
+          <NotConnected height={NormalizeSize(81)} width={NormalizeSize(100)} />
+        }
         message="Please reconnect to continue using the app"
       />
     );

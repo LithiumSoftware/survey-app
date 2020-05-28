@@ -1,22 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { View, Text } from "react-native";
 import { IconButton, Button } from "react-native-paper";
-import { CheckCircle } from "../assets/icons";
+import { CheckCircle, AnswerSuccess } from "../assets/icons";
 import MainNonScrollableContainer from "../components/MainNonScrollableContainer";
 import Title from "../components/Title";
 import NormalizeSize from "../utils/NormalizeSize";
 import HeaderBack from "./HeaderBack";
+import FullScreenMessage from "./FullScreenMessage";
 
 interface Props {
   navigation: any;
   survey: any;
+  answers: number;
   answerSurvey: () => any;
 }
 
-const FinishAnsweringSurvey = ({ navigation, survey, answerSurvey }: Props) => {
+const FinishAnsweringSurvey = ({
+  navigation,
+  survey,
+  answers,
+  answerSurvey,
+}: Props) => {
   const questionsCount = survey?.questions?.length;
   const [error, setError] = useState(false);
+  const [answered, setAnswered] = useState(false);
+  const [answersCount, setAnswersCount] = useState(answers);
+  useEffect(() => {
+    setAnswersCount(answers);
+  }, [answers]);
 
   return (
     <>
@@ -36,7 +48,7 @@ const FinishAnsweringSurvey = ({ navigation, survey, answerSurvey }: Props) => {
             />
             <SurveyCompleted>Survey is completed</SurveyCompleted>
             <Answers>
-              Answers {questionsCount}/{questionsCount}
+              Answers {answersCount}/{questionsCount}
             </Answers>
           </Container>
         </View>
@@ -60,7 +72,7 @@ const FinishAnsweringSurvey = ({ navigation, survey, answerSurvey }: Props) => {
               onPress={() => {
                 const answer = answerSurvey();
                 if (answer) {
-                  navigation.popToTop();
+                  setAnswered(true);
                 } else {
                   setError(true);
                 }
@@ -71,6 +83,19 @@ const FinishAnsweringSurvey = ({ navigation, survey, answerSurvey }: Props) => {
           </ButtonViewRow>
         </View>
       </MainNonScrollableContainer>
+      {answered && (
+        <FullScreenMessage
+          navigation={navigation}
+          message="Answer submited successfully"
+          title={survey.title}
+          icon={
+            <AnswerSuccess
+              height={NormalizeSize(81)}
+              width={NormalizeSize(100)}
+            />
+          }
+        />
+      )}
     </>
   );
 };

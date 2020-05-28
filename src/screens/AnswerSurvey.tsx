@@ -1,24 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import AnswerSurvey from "../components/AnswerSurvey";
 import FinishAnsweringSurvey from "../components/FinishAnsweringSurvey";
 import ScreenProps from "./ScreenProps";
 import { useCreateAnswerMutation } from "../../graphql/generated";
 
 const AnswerSurveyScreen = ({ route, navigation }: ScreenProps) => {
-  const [selectedOptions, setSelectedOptions] = useState<any[]>([]);
   const [answer] = useCreateAnswerMutation();
-  const selectOption = (id: number, option: any) => {
-    selectedOptions[id] = option;
-    setSelectedOptions(selectedOptions);
-  };
+
   const answerSurvey = () => {
-    if (selectedOptions.filter((option) => option === null)) {
+    if (
+      route.params.selectedOptions.filter((option: any) => option === null)
+        .length > 0
+    ) {
       return null;
     } else {
-      selectedOptions.map((option) =>
+      return route.params.selectedOptions.map((option: any) =>
         answer({ variables: { optionId: option.id } })
+          .then((answer) => answer.data?.createAnswer?.option.text)
+          .catch(() => null)
       );
-      return selectedOptions;
     }
   };
 
@@ -27,12 +27,16 @@ const AnswerSurveyScreen = ({ route, navigation }: ScreenProps) => {
       navigation={navigation}
       survey={route.params.survey}
       questionIndex={route.params.questionIndex}
-      selectOption={selectOption}
+      selectedOptions={route.params.selectedOptions}
     />
   ) : (
     <FinishAnsweringSurvey
       navigation={navigation}
       survey={route.params.survey}
+      answers={
+        route.params.selectedOptions.filter((option: any) => option !== null)
+          .length
+      }
       answerSurvey={answerSurvey}
     />
   );

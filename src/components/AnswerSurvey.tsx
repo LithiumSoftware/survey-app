@@ -12,14 +12,14 @@ interface Props {
   navigation: any;
   survey: any;
   questionIndex: number;
-  selectOption: (id: number, option: any) => void;
+  selectedOptions: any[];
 }
 
 const AnswerSurvey = ({
   navigation,
   survey,
   questionIndex,
-  selectOption,
+  selectedOptions,
 }: Props) => {
   const [selectedOption, setSelectedOption] = useState<any>(null);
 
@@ -44,7 +44,7 @@ const AnswerSurvey = ({
                   isSelected={option.id === selectedOption?.id}
                   changeSelected={(newOption: any) => {
                     setSelectedOption(
-                      newOption?.id !== selectedOption?.id ? index : null
+                      newOption?.id !== selectedOption?.id ? newOption : null
                     );
                   }}
                 />
@@ -66,10 +66,11 @@ const AnswerSurvey = ({
             mode="text"
             color="#4f4f4f"
             onPress={() => {
-              selectOption(questionIndex, selectedOption);
+              selectedOptions[questionIndex] = selectedOption;
               navigation.push("AnswerSurvey", {
                 survey: survey,
                 questionIndex: questionIndex + 1,
+                selectedOptions: selectedOptions,
               });
             }}
           >
