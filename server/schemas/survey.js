@@ -14,7 +14,6 @@ export const typeDef = `
 
   input CreateSurveyInput {
     title: String!
-    opened: Boolean!
     published: Boolean!
     questions: [CreateQuestionInput!]!
   }
@@ -68,7 +67,7 @@ export const resolvers = {
       db.survey
         .create({
           title: input.title,
-          opened: input.opened,
+          opened: true,
           published: input.published,
           userId: currentUserId,
         })

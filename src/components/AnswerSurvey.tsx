@@ -31,7 +31,7 @@ const AnswerSurvey = ({
           <Title>{survey?.title}</Title>
           <Container>
             <StyledViewRow>
-              <QuestionNumber>{questionIndex + 1 + ")"}</QuestionNumber>
+              <QuestionNumber>{questionIndex + 1})</QuestionNumber>
               <QuestionTitle>
                 {survey?.questions?.[questionIndex]?.text}
               </QuestionTitle>

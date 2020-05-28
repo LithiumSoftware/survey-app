@@ -11,7 +11,7 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import Navigator from "./navigation/Navigator";
 
 const link = new HttpLink({
-  uri: "https://localhost:3000/api/graphql", // Server URL (must be absolute),
+  uri: "https://survey-app-server.now.sh/api/graphql", // Server URL (must be absolute),
   credentials: "same-origin",
 });
 
