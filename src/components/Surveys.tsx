@@ -12,7 +12,12 @@ import LoadingView from "./LoadingView";
 import FullScreenMessage from "./FullScreenMessage";
 
 import { Plus, MessageBulletedOff, NotConnected } from "../assets/icons";
-import { useSurveysQuery, useCurrentUserQuery } from "../../graphql/generated";
+import {
+  useSurveysQuery,
+  useCurrentUserQuery
+  useToggleOpenMutation,
+  SurveysDocument,
+} from "../../graphql/generated";
 import NormalizeSize from "../utils/NormalizeSize";
 
 const Surveys = ({
@@ -25,6 +30,7 @@ const Surveys = ({
   const { data, loading } = useSurveysQuery({});
   const { data: userData, loading: userLoading } = useCurrentUserQuery({});
   const [surveys, setSurveys] = useState(data?.surveys);
+  const [toggleOpen] = useToggleOpenMutation({});
 
   useEffect(() => {
     setSurveys(data?.surveys);
@@ -32,6 +38,24 @@ const Surveys = ({
 
   const logOut = () =>
     AsyncStorage.setItem("logged_in", "").then(() => setUserToken(null));
+
+  const closeSurvey = (id: string) => {
+    toggleOpen({
+      variables: { id: id },
+      update(cache, { data: { toggleOpen } }) {
+        const cachedSurveys = cache.readQuery({ query: SurveysDocument });
+        cachedSurveys.surveys.some((survey: any) => {
+          if (survey.id === id) {
+            survey.opened = toggleOpen;
+            return true;
+          } else {
+            return false;
+          }
+        });
+        cache.writeQuery({ query: SurveysDocument, data: cachedSurveys });
+      },
+    }).then((success) => success && navigation.navigate("Surveys"));
+  };
 
   if (loading || userLoading) {
     return <LoadingView />;
@@ -58,6 +82,7 @@ const Surveys = ({
                   key={survey?.id}
                   survey={survey}
                   navigation={navigation}
+                  closeSurvey={closeSurvey}
                 />
               ))}
             </View>
@@ -84,6 +109,7 @@ const Surveys = ({
                     key={survey?.id}
                     survey={survey}
                     navigation={navigation}
+                    closeSurvey={closeSurvey}
                   />
                 ))}
               </View>
@@ -96,6 +122,7 @@ const Surveys = ({
                 key={survey?.id}
                 survey={survey}
                 navigation={navigation}
+                closeSurvey={closeSurvey}
               />
             ))}
           </View>
