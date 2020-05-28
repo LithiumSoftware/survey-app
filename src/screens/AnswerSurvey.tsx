@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import AnswerSurvey from "../components/AnswerSurvey";
 import FinishAnsweringSurvey from "../components/FinishAnsweringSurvey";
 import ScreenProps from "./ScreenProps";

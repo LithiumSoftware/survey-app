@@ -6,7 +6,7 @@ const FABIcon = styled(FAB)`
   position: absolute;
   margin: ${NormalizeSize(28)}px;
   right: 0px;
-  bottom: ${NormalizeSize(56)}px;
+  bottom: 0px;
   background-color: #ffb900;
 `;
 
