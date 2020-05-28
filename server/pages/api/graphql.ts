@@ -45,7 +45,7 @@ const apolloServer = new ApolloServer({
       db,
       req,
       res,
-      currentUserId: user?.id,
+      currentUserId: user?.user?.id,
     };
   },
   introspection: true,

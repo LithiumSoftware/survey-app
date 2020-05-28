@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { AsyncStorage } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { AsyncStorage } from "react-native";
 import LogInScreen from "../screens/LogIn";
+import SurveysScreen from "../screens/Surveys";
+import AnswerSurveyScreen from "../screens/AnswerSurvey";
 
 const Stack = createStackNavigator();
 
@@ -18,8 +20,9 @@ const AppNavigator = () => {
     <>
       {!loading &&
         (loggedUser ? (
-          <Stack.Navigator>
-            <></>
+          <Stack.Navigator headerMode="none">
+            <Stack.Screen name="Surveys" component={SurveysScreen} />
+            <Stack.Screen name="AnswerSurvey" component={AnswerSurveyScreen} />
           </Stack.Navigator>
         ) : (
           <LoginNavigator initialParams={{ setUser: setUser }} />

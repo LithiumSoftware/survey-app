@@ -161,6 +161,26 @@ export type User = {
   updatedAt?: Maybe<Scalars['Date']>;
 };
 
+export type CreateAnswerMutationVariables = {
+  optionId: Scalars['ID'];
+};
+
+
+export type CreateAnswerMutation = (
+  { __typename?: 'Mutation' }
+  & { createAnswer: (
+    { __typename?: 'Answer' }
+    & Pick<Answer, 'id'>
+    & { user?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'username'>
+    )>, option: (
+      { __typename?: 'Option' }
+      & Pick<Option, 'id' | 'text'>
+    ) }
+  ) }
+);
+
 export type LoginMutationVariables = {
   identifier: Scalars['String'];
   password: Scalars['String'];
@@ -175,7 +195,66 @@ export type LoginMutation = (
   )> }
 );
 
+export type SurveysQueryVariables = {};
 
+
+export type SurveysQuery = (
+  { __typename?: 'Query' }
+  & { surveys?: Maybe<Array<Maybe<(
+    { __typename?: 'Survey' }
+    & Pick<Survey, 'id' | 'title' | 'opened' | 'published'>
+    & { questions: Array<(
+      { __typename?: 'Question' }
+      & Pick<Question, 'id' | 'text'>
+      & { options: Array<(
+        { __typename?: 'Option' }
+        & Pick<Option, 'id' | 'text'>
+      )> }
+    )> }
+  )>>> }
+);
+
+
+export const CreateAnswerDocument = gql`
+    mutation CreateAnswer($optionId: ID!) {
+  createAnswer(input: {optionId: $optionId}) {
+    id
+    user {
+      id
+      username
+    }
+    option {
+      id
+      text
+    }
+  }
+}
+    `;
+export type CreateAnswerMutationFn = ApolloReactCommon.MutationFunction<CreateAnswerMutation, CreateAnswerMutationVariables>;
+
+/**
+ * __useCreateAnswerMutation__
+ *
+ * To run a mutation, you first call `useCreateAnswerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAnswerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAnswerMutation, { data, loading, error }] = useCreateAnswerMutation({
+ *   variables: {
+ *      optionId: // value for 'optionId'
+ *   },
+ * });
+ */
+export function useCreateAnswerMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateAnswerMutation, CreateAnswerMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateAnswerMutation, CreateAnswerMutationVariables>(CreateAnswerDocument, baseOptions);
+      }
+export type CreateAnswerMutationHookResult = ReturnType<typeof useCreateAnswerMutation>;
+export type CreateAnswerMutationResult = ApolloReactCommon.MutationResult<CreateAnswerMutation>;
+export type CreateAnswerMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateAnswerMutation, CreateAnswerMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($identifier: String!, $password: String!) {
   loggedUser(input: {identifier: $identifier, password: $password}) {
@@ -209,3 +288,46 @@ export function useLoginMutation(baseOptions?: ApolloReactHooks.MutationHookOpti
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = ApolloReactCommon.MutationResult<LoginMutation>;
 export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const SurveysDocument = gql`
+    query Surveys {
+  surveys {
+    id
+    title
+    questions {
+      id
+      text
+      options {
+        id
+        text
+      }
+    }
+    opened
+    published
+  }
+}
+    `;
+
+/**
+ * __useSurveysQuery__
+ *
+ * To run a query within a React component, call `useSurveysQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSurveysQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSurveysQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSurveysQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SurveysQuery, SurveysQueryVariables>) {
+        return ApolloReactHooks.useQuery<SurveysQuery, SurveysQueryVariables>(SurveysDocument, baseOptions);
+      }
+export function useSurveysLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SurveysQuery, SurveysQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<SurveysQuery, SurveysQueryVariables>(SurveysDocument, baseOptions);
+        }
+export type SurveysQueryHookResult = ReturnType<typeof useSurveysQuery>;
+export type SurveysLazyQueryHookResult = ReturnType<typeof useSurveysLazyQuery>;
+export type SurveysQueryResult = ApolloReactCommon.QueryResult<SurveysQuery, SurveysQueryVariables>;

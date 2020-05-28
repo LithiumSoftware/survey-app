@@ -1,7 +1,7 @@
 import React from "react";
-import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider as PaperProvider } from "react-native-paper";
+import { StatusBar } from "react-native";
 
 import { ApolloProvider } from "react-apollo";
 import { ApolloClient } from "apollo-client";

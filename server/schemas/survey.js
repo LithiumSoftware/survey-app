@@ -9,13 +9,11 @@ export const typeDef = `
 
   extend type Mutation {
     createSurvey(input: CreateSurveyInput!): Survey!
-
     toggleOpen(id: ID!): Boolean!
   }
 
   input CreateSurveyInput {
     title: String!
-    opened: Boolean!
     published: Boolean!
     questions: [CreateQuestionInput!]!
   }
@@ -44,17 +42,34 @@ export const typeDef = `
 export const resolvers = {
   Query: {
     survey: (root, { id }, { db }) => db.survey.findByPk(id),
-    surveys: (root, args, { db }) =>
-      db.survey.findAll({
-        order: [["createdAt", "ASC"]],
-      }),
+    surveys: (root, args, { db, currentUserId }) => {
+      if (currentUserId) {
+        return db.user.findByPk(currentUserId).then((user) =>
+          user.role === "ADMIN"
+            ? db.survey.findAll({
+                order: [["title", "ASC"]],
+              })
+            : db.survey.findAll({
+                where: { published: true },
+                order: [["title", "ASC"]],
+              })
+        );
+      } else {
+        return db.survey.findAll({
+          where: { published: true },
+          order: [["title", "ASC"]],
+        });
+      }
+    },
   },
   Mutation: {
     createSurvey: authenticated((root, { input }, { db, currentUserId }) =>
       db.survey
         .create({
           title: input.title,
+          opened: true,
           published: input.published,
+          userId: currentUserId,
         })
         .then((survey) => {
           if (survey) {
