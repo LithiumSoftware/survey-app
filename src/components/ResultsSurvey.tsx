@@ -10,22 +10,22 @@ import HeaderBack from "./HeaderBack";
 
 interface Props {
   navigation: any;
-  survey: any;
+  result: any;
 }
 
-const ResultsSurvey = ({ navigation, survey }: Props) => {
+const ResultsSurvey = ({ navigation, result }: Props) => {
   return (
     <MainScrollableContainer>
       <HeaderView>
         <HeaderBack navigation={navigation} />
       </HeaderView>
-      <Title>{survey?.title}</Title>
+      <Title>{result?.survey?.title}</Title>
       <View>
-        {survey.questions.map((question: any, index: number) => (
+        {result?.questionsResults.map((questionResult: any, index: number) => (
           <ResultsQuestion
-            key={question.id}
-            question={question}
-            navigation={navigation}
+            key={questionResult.question.id}
+            questionResult={questionResult}
+            totalAnswers={result.totalAnswers}
             questionIndex={index}
           />
         ))}
