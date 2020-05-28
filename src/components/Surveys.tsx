@@ -42,7 +42,6 @@ const Surveys = ({ navigation }: { navigation: any }) => {
           <HeaderLogo />
           <View>
             <Title>Active surveys</Title>
-            <Text>{JSON.stringify(loading)}</Text>
             <View>
               {activeSurveys?.map((survey) => (
                 <Survey
@@ -80,32 +79,28 @@ const Surveys = ({ navigation }: { navigation: any }) => {
               </View>
             </>
           )}
+          <Title>Closed Surveys</Title>
+          <View>
+            {closedSurveys?.map((survey) => (
+              <Survey
+                key={survey?.id}
+                survey={survey}
+                navigation={navigation}
+              />
+            ))}
+          </View>
           {(!closedSurveys || closedSurveys?.length === 0) && (
-            <View>
-              <Title>Closed Surveys</Title>
-              <View>
-                {closedSurveys?.map((survey) => (
-                  <Survey
-                    key={survey?.id}
-                    survey={survey}
-                    navigation={navigation}
+            <Container>
+              <StyledIconButton
+                icon={() => (
+                  <MessageBulletedOff
+                    height={NormalizeSize(51)}
+                    width={NormalizeSize(51)}
                   />
-                ))}
-              </View>
-              {(!closedSurveys || closedSurveys?.length === 0) && (
-                <Container>
-                  <StyledIconButton
-                    icon={() => (
-                      <MessageBulletedOff
-                        height={NormalizeSize(51)}
-                        width={NormalizeSize(51)}
-                      />
-                    )}
-                  />
-                  <NoSurveys>There are not closed surveys</NoSurveys>
-                </Container>
-              )}
-            </View>
+                )}
+              />
+              <NoSurveys>There are not closed surveys</NoSurveys>
+            </Container>
           )}
         </MainScrollableContainer>
         <FABIcon icon={() => <Plus />} onPress={() => {}} />
