@@ -11,11 +11,12 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import Navigator from "./navigation/Navigator";
 
 const link = new HttpLink({
-  uri: "http://survey-app-server.lithiumsoftware.now.sh/api/graphql", // Server URL (must be absolute)
+  uri: "https://localhost:3000/api/graphql", // Server URL (must be absolute),
+  credentials: "same-origin",
 });
 
 const client = new ApolloClient({
-  link: link,
+  link,
   cache: new InMemoryCache(),
 });
 

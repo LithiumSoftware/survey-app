@@ -181,6 +181,20 @@ export type CreateAnswerMutation = (
   ) }
 );
 
+export type LoginMutationVariables = {
+  identifier: Scalars['String'];
+  password: Scalars['String'];
+};
+
+
+export type LoginMutation = (
+  { __typename?: 'Mutation' }
+  & { loggedUser?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+  )> }
+);
+
 export type SurveysQueryVariables = {};
 
 
@@ -241,6 +255,39 @@ export function useCreateAnswerMutation(baseOptions?: ApolloReactHooks.MutationH
 export type CreateAnswerMutationHookResult = ReturnType<typeof useCreateAnswerMutation>;
 export type CreateAnswerMutationResult = ApolloReactCommon.MutationResult<CreateAnswerMutation>;
 export type CreateAnswerMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateAnswerMutation, CreateAnswerMutationVariables>;
+export const LoginDocument = gql`
+    mutation Login($identifier: String!, $password: String!) {
+  loggedUser(input: {identifier: $identifier, password: $password}) {
+    id
+  }
+}
+    `;
+export type LoginMutationFn = ApolloReactCommon.MutationFunction<LoginMutation, LoginMutationVariables>;
+
+/**
+ * __useLoginMutation__
+ *
+ * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginMutation, { data, loading, error }] = useLoginMutation({
+ *   variables: {
+ *      identifier: // value for 'identifier'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useLoginMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
+        return ApolloReactHooks.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, baseOptions);
+      }
+export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
+export type LoginMutationResult = ApolloReactCommon.MutationResult<LoginMutation>;
+export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const SurveysDocument = gql`
     query Surveys {
   surveys {
