@@ -34,7 +34,7 @@ export const resolvers = {
       if (currentUserId) {
         db.answer
           .findAll({
-            where: { userId: currentUserId, optionId: input?.option?.id },
+            where: { userId: currentUserId, optionId: input?.optionId },
           })
           .then((answer) => {
             if (!answer) {
