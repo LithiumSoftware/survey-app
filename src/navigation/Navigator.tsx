@@ -4,6 +4,7 @@ import { AsyncStorage } from "react-native";
 import LogInScreen from "../screens/LogIn";
 import SurveysScreen from "../screens/Surveys";
 import AnswerSurveyScreen from "../screens/AnswerSurvey";
+import ResultsScreen from "../screens/Results";
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ const AppNavigator = () => {
           <Stack.Navigator headerMode="none">
             <Stack.Screen name="Surveys" component={SurveysScreen} />
             <Stack.Screen name="AnswerSurvey" component={AnswerSurveyScreen} />
+            <Stack.Screen name="Results" component={ResultsScreen} />
           </Stack.Navigator>
         ) : (
           <LoginNavigator initialParams={{ setUser: setUser }} />

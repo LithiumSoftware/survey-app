@@ -7,50 +7,17 @@ import NormalizeSize from "../utils/NormalizeSize";
 
 interface Props {
   navigation: any;
-  survey: any;
+  question: any;
+  questionIndex: number;
 }
 
-const Survey = ({ navigation, survey }: Props) => {
-  const isActive = survey.published === true && survey.opened === true;
-  const isClosed = survey.published === true && survey.opened === false;
-
+const ResultsQuestion = ({ navigation, question, questionIndex }: Props) => {
   return (
     <Container>
       <StyledViewRow>
-        <StyledIconButton
-          color="black"
-          icon={() => <MessageBulleted fill={"black"} />}
-        />
-        <StyledViewColumn>
-          <SurveyTitle>{survey.title}</SurveyTitle>
-          <QuestionsDetail>
-            {survey.questions.length + " QUESTIONS"}
-          </QuestionsDetail>
-        </StyledViewColumn>
+        <QuestionNumber>{questionIndex + 1 + ")"}</QuestionNumber>
+        <QuestionTitle>{question?.text}</QuestionTitle>
       </StyledViewRow>
-      <TakeSurveyButton
-        mode="text"
-        color="white"
-        onPress={() => {
-          isActive
-            ? navigation.navigate("AnswerSurvey", {
-                survey: survey,
-                questionIndex: 0,
-              })
-            : isClosed
-            ? navigation.navigate("Results", {
-                survey: survey,
-              })
-            : console.log("active survey");
-        }}
-      >
-        {isActive ? "TAKE SURVEY" : isClosed ? "RESULTS" : "ACTIVE SURVEY"}
-      </TakeSurveyButton>
-      {isActive && (
-        <CloseSurveyButton mode="text" color="black" onPress={() => {}}>
-          CLOSE SURVEY
-        </CloseSurveyButton>
-      )}
     </Container>
   );
 };
@@ -60,18 +27,30 @@ const StyledIconButton = styled(IconButton)`
 `;
 
 const SurveyTitle = styled(Text)`
-  font-size: ${NormalizeSize(22)}px;
-  font-weight: 500;
-  letter-spacing: -0.5px;
-  color: rgba(0, 0, 0, 0.87);
+  font-size: ${NormalizeSize(24)}px;
+  font-weight: bold;
 `;
 
-const QuestionsDetail = styled(Text)`
+const SelectionDetail = styled(Text)`
   font-size: ${NormalizeSize(10)}px;
   padding-top: ${NormalizeSize(4)}px;
   font-weight: 500;
   color: rgba(0, 0, 0, 0.6);
   letter-spacing: ${NormalizeSize(1.5)}px;
+`;
+
+const QuestionNumber = styled(Text)`
+  font-size: ${NormalizeSize(22)}px;
+  font-weight: 500;
+  letter-spacing: ${NormalizeSize(-0.5)}px;
+`;
+
+const QuestionTitle = styled(Text)`
+  font-size: ${NormalizeSize(22)}px;
+  font-weight: 500;
+  color: #4f4f4f;
+  padding-left: ${NormalizeSize(8)}px;
+  letter-spacing: ${NormalizeSize(-0.5)}px;
 `;
 
 const TakeSurveyButton = styled(Button)`
@@ -116,4 +95,4 @@ const Container = styled(View)`
   margin-bottom: ${NormalizeSize(16)}px;
 `;
 
-export default Survey;
+export default ResultsQuestion;

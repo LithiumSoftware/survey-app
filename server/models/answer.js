@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "surveys",
+          model: "options",
           key: "id",
         },
       },
@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
 
-  Answer.associate = function (models) {
+  Answer.associate = function(models) {
     Answer.belongsTo(models.user, { foreignKey: "userId" });
     Answer.belongsTo(models.option, { foreignKey: "optionId" });
   };

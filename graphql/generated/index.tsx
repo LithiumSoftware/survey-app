@@ -44,7 +44,6 @@ export type CreateQuestionInput = {
 
 export type CreateSurveyInput = {
   title: Scalars['String'];
-  opened: Scalars['Boolean'];
   published: Scalars['Boolean'];
   questions: Array<CreateQuestionInput>;
 };
@@ -102,6 +101,7 @@ export type Option = {
   id: Scalars['ID'];
   text: Scalars['String'];
   question: Question;
+  answers: Array<Answer>;
   createdAt?: Maybe<Scalars['Date']>;
   updatedAt?: Maybe<Scalars['Date']>;
 };
@@ -112,11 +112,17 @@ export type Query = {
   answers?: Maybe<Array<Maybe<Answer>>>;
   survey?: Maybe<Survey>;
   surveys?: Maybe<Array<Maybe<Survey>>>;
+  results?: Maybe<Result>;
   me?: Maybe<User>;
 };
 
 
 export type QuerySurveyArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryResultsArgs = {
   id: Scalars['ID'];
 };
 
@@ -128,6 +134,25 @@ export type Question = {
   options: Array<Option>;
   createdAt?: Maybe<Scalars['Date']>;
   updatedAt?: Maybe<Scalars['Date']>;
+};
+
+export type QuestionAnswers = {
+  __typename?: 'QuestionAnswers';
+  answer: Option;
+  count: Scalars['Float'];
+};
+
+export type QuestionResults = {
+  __typename?: 'QuestionResults';
+  question: Question;
+  answers?: Maybe<Array<QuestionAnswers>>;
+};
+
+export type Result = {
+  __typename?: 'Result';
+  survey: Survey;
+  questionsResults: Array<QuestionResults>;
+  totalAnswers: Scalars['Float'];
 };
 
 export enum Role {
@@ -192,6 +217,36 @@ export type LoginMutation = (
   & { loggedUser?: Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'id'>
+  )> }
+);
+
+export type ResultsQueryVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type ResultsQuery = (
+  { __typename?: 'Query' }
+  & { results?: Maybe<(
+    { __typename?: 'Result' }
+    & Pick<Result, 'totalAnswers'>
+    & { survey: (
+      { __typename?: 'Survey' }
+      & Pick<Survey, 'id' | 'title'>
+    ), questionsResults: Array<(
+      { __typename?: 'QuestionResults' }
+      & { question: (
+        { __typename?: 'Question' }
+        & Pick<Question, 'id' | 'text'>
+      ), answers?: Maybe<Array<(
+        { __typename?: 'QuestionAnswers' }
+        & Pick<QuestionAnswers, 'count'>
+        & { answer: (
+          { __typename?: 'Option' }
+          & Pick<Option, 'id' | 'text'>
+        ) }
+      )>> }
+    )> }
   )> }
 );
 
@@ -288,6 +343,56 @@ export function useLoginMutation(baseOptions?: ApolloReactHooks.MutationHookOpti
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = ApolloReactCommon.MutationResult<LoginMutation>;
 export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const ResultsDocument = gql`
+    query Results($id: ID!) {
+  results(id: $id) {
+    survey {
+      id
+      title
+    }
+    questionsResults {
+      question {
+        id
+        text
+      }
+      answers {
+        answer {
+          id
+          text
+        }
+        count
+      }
+    }
+    totalAnswers
+  }
+}
+    `;
+
+/**
+ * __useResultsQuery__
+ *
+ * To run a query within a React component, call `useResultsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useResultsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useResultsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useResultsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ResultsQuery, ResultsQueryVariables>) {
+        return ApolloReactHooks.useQuery<ResultsQuery, ResultsQueryVariables>(ResultsDocument, baseOptions);
+      }
+export function useResultsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ResultsQuery, ResultsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ResultsQuery, ResultsQueryVariables>(ResultsDocument, baseOptions);
+        }
+export type ResultsQueryHookResult = ReturnType<typeof useResultsQuery>;
+export type ResultsLazyQueryHookResult = ReturnType<typeof useResultsLazyQuery>;
+export type ResultsQueryResult = ApolloReactCommon.QueryResult<ResultsQuery, ResultsQueryVariables>;
 export const SurveysDocument = gql`
     query Surveys {
   surveys {
