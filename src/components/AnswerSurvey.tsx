@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import MainNonScrollableContainer from "./MainNonScrollableContainer";
-import AnswerSelection from "../components/AnswerSelection";
+import AnswerOption from "../components/AnswerOption";
 import Title from "../components/Title";
 import { View, Text } from "react-native";
 import { Button } from "react-native-paper";
@@ -12,10 +12,16 @@ interface Props {
   navigation: any;
   survey: any;
   questionIndex: number;
+  selectOption: (id: number, option: any) => void;
 }
 
-const AnswerSurvey = ({ navigation, survey, questionIndex }: Props) => {
-  const [selectedSelection, setSelectedSelection] = useState(-1);
+const AnswerSurvey = ({
+  navigation,
+  survey,
+  questionIndex,
+  selectOption,
+}: Props) => {
+  const [selectedOption, setSelectedOption] = useState<any>(null);
 
   return (
     <>
@@ -30,16 +36,15 @@ const AnswerSurvey = ({ navigation, survey, questionIndex }: Props) => {
                 {survey?.questions?.[questionIndex]?.text}
               </QuestionTitle>
             </StyledViewRow>
-            {survey?.questions?.[questionIndex]?.selections?.map(
-              (selection: any, index: number) => (
-                <AnswerSelection
+            {survey?.questions?.[questionIndex]?.options?.map(
+              (option: any, index: number) => (
+                <AnswerOption
                   key={index}
-                  selection={selection}
-                  selectionIndex={index}
-                  isSelected={index === selectedSelection}
-                  changeSelected={(index) => {
-                    setSelectedSelection(
-                      index !== selectedSelection ? index : -1
+                  option={option}
+                  isSelected={option.id === selectedOption?.id}
+                  changeSelected={(newOption: any) => {
+                    setSelectedOption(
+                      newOption?.id !== selectedOption?.id ? index : null
                     );
                   }}
                 />
@@ -61,6 +66,7 @@ const AnswerSurvey = ({ navigation, survey, questionIndex }: Props) => {
             mode="text"
             color="#4f4f4f"
             onPress={() => {
+              selectOption(questionIndex, selectedOption);
               navigation.push("AnswerSurvey", {
                 survey: survey,
                 questionIndex: questionIndex + 1,

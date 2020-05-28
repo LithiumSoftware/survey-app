@@ -7,7 +7,7 @@ const MainScrollableContainer = (props: any) => (
   <Container
     contentContainerStyle={{
       flexGrow: 1,
-      justifyContent: "space-evenly",
+      justifyContent: "space-between",
       alignItems: "stretch",
       paddingBottom: NormalizeSize(150),
     }}

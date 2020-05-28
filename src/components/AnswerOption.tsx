@@ -5,18 +5,12 @@ import CheckBox from "react-native-check-box";
 import NormalizeSize from "../utils/NormalizeSize";
 
 interface Props {
-  selection: any;
-  selectionIndex: number;
+  option: any;
   isSelected: boolean;
   changeSelected: (index: number) => void;
 }
 
-const AnswerSelection = ({
-  selection,
-  selectionIndex,
-  isSelected,
-  changeSelected,
-}: Props) => {
+const AnswerOption = ({ option, isSelected, changeSelected }: Props) => {
   const [isChecked, setIsChecked] = useState(isSelected);
   useEffect(() => {
     setIsChecked(isSelected);
@@ -25,17 +19,17 @@ const AnswerSelection = ({
     <StyledViewRow>
       <CheckBox
         onClick={() => {
-          changeSelected(selectionIndex);
+          changeSelected(option);
         }}
         isChecked={isChecked}
         uncheckedCheckBoxColor={"rgba(0, 0, 0, 0.54)"}
       />
-      <SelectionText>{selection.text}</SelectionText>
+      <OptionText>{option.text}</OptionText>
     </StyledViewRow>
   );
 };
 
-const SelectionText = styled(Text)`
+const OptionText = styled(Text)`
   padding-left: ${NormalizeSize(12)}px;
   font-size: ${NormalizeSize(16)}px;
   color: rgba(0, 0, 0, 0.6);
@@ -50,4 +44,4 @@ const StyledViewRow = styled(View)`
   margin-bottom: ${NormalizeSize(16)}px;
 `;
 
-export default AnswerSelection;
+export default AnswerOption;

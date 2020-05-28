@@ -7,6 +7,7 @@ const Title = styled(Text)`
   text-align: center;
   padding-bottom: ${NormalizeSize(16)}px;
   font-weight: bold;
+  letter-spacing: ${NormalizeSize(-1.5)}px;
 `;
 
 export default Title;

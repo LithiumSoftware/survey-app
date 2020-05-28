@@ -13,7 +13,7 @@ const apolloServer = new ApolloServer({
       const token = req?.cookies?.token || "";
       const maliciousToken = req?.headers["malicious-token"];
       if (token === maliciousToken) throw null;
-      ({ user } = await (token ? verify(token, "supersecret") : undefined));
+      user = await (token ? verify(token, "supersecret") : undefined);
     } catch (err) {
       console.log("Error fetching user: ", err);
     }
@@ -22,7 +22,7 @@ const apolloServer = new ApolloServer({
       db,
       req,
       res,
-      currentUserId: user?.id,
+      currentUserId: user?.user?.id,
     };
   },
   introspection: true,

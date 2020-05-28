@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { View, Text } from "react-native";
 import { IconButton, Button } from "react-native-paper";
@@ -11,10 +11,13 @@ import HeaderBack from "./HeaderBack";
 interface Props {
   navigation: any;
   survey: any;
+  answerSurvey: () => any;
 }
 
-const FinishAnsweringSurvey = ({ navigation, survey }: Props) => {
+const FinishAnsweringSurvey = ({ navigation, survey, answerSurvey }: Props) => {
   const questionsCount = survey?.questions?.length;
+  const [error, setError] = useState(false);
+
   return (
     <>
       <HeaderBack navigation={navigation} />
@@ -37,26 +40,36 @@ const FinishAnsweringSurvey = ({ navigation, survey }: Props) => {
             </Answers>
           </Container>
         </View>
-        <ButtonViewRow>
-          <StyledButton
-            mode="text"
-            color="#4f4f4f"
-            onPress={() => {
-              navigation.goBack();
-            }}
-          >
-            BACK
-          </StyledButton>
-          <SubmitButton
-            mode="text"
-            color="white"
-            onPress={() => {
-              navigation.popToTop();
-            }}
-          >
-            SUBMIT
-          </SubmitButton>
-        </ButtonViewRow>
+        <View>
+          {error && (
+            <ErrorText>Please answer all the questions before submit</ErrorText>
+          )}
+          <ButtonViewRow>
+            <StyledButton
+              mode="text"
+              color="#4f4f4f"
+              onPress={() => {
+                navigation.goBack();
+              }}
+            >
+              BACK
+            </StyledButton>
+            <SubmitButton
+              mode="text"
+              color="white"
+              onPress={() => {
+                const answer = answerSurvey();
+                if (answer) {
+                  navigation.popToTop();
+                } else {
+                  setError(true);
+                }
+              }}
+            >
+              SUBMIT
+            </SubmitButton>
+          </ButtonViewRow>
+        </View>
       </MainNonScrollableContainer>
     </>
   );
@@ -101,6 +114,13 @@ const StyledIconButton = styled(IconButton)`
   height: ${NormalizeSize(81)}px;
   width: ${NormalizeSize(81)}px;
   margin-bottom: ${NormalizeSize(28)}px;
+`;
+
+const ErrorText = styled(Text)`
+  color: #ff0c3e;
+  font-size: 14px;
+  text-align: center;
+  padding-bottom: ${NormalizeSize(12)}px;
 `;
 
 const Container = styled(View)`

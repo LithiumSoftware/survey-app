@@ -54,7 +54,9 @@ export const resolvers = {
       db.survey
         .create({
           title: input.title,
+          opened: input.opened,
           published: input.published,
+          userId: currentUserId,
         })
         .then((survey) => {
           if (survey) {

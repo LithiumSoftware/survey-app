@@ -11,8 +11,8 @@ interface Props {
 }
 
 const Survey = ({ navigation, survey }: Props) => {
-  const isActive = survey.published === true && survey.open === true;
-  const isClosed = survey.published === true && survey.open === false;
+  const isActive = survey.published === true && survey.opened === true;
+  const isClosed = survey.published === true && survey.opened === false;
 
   return (
     <Container>
