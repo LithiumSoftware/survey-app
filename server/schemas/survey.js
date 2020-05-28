@@ -5,6 +5,7 @@ export const typeDef = `
   extend type Query {
     survey(id: ID!): Survey
     surveys: [Survey]
+    results(id: ID!): Result
   }
 
   extend type Mutation {
@@ -36,7 +37,23 @@ export const typeDef = `
     published: Boolean!
     createdAt: Date
     updatedAt: Date
-  }  
+  }
+
+  type Result {
+    survey: Survey!
+    questionsResults: [QuestionResults!]!
+    totalAnswers: Float!
+  }
+
+  type QuestionResults {
+    question: Question!,
+    answers: [QuestionAnswers!]
+  }
+
+  type QuestionAnswers {
+    answer: Option!
+    count: Float!
+  }
 `;
 
 export const resolvers = {
@@ -45,7 +62,7 @@ export const resolvers = {
     surveys: (root, args, { db, currentUserId }) => {
       if (currentUserId) {
         return db.user.findByPk(currentUserId).then((user) =>
-          user.role === "ADMIN"
+          user && user.role === "ADMIN"
             ? db.survey.findAll({
                 order: [["createdAt", "ASC"]],
               })
@@ -60,6 +77,36 @@ export const resolvers = {
           order: [["createdAt", "ASC"]],
         });
       }
+    },
+    results: (root, { id }, { db }) => {
+      return db.survey.findByPk(id).then(async (survey) => {
+        let totalAnswers = 0;
+        const questionResults = await db.question
+          .findAll({ where: { surveyId: survey.dataValues.id } })
+          .map(async (question, index) => {
+            const answers = await db.option
+              .findAll({ where: { questionId: question.dataValues.id } })
+              .map(async (option) => {
+                const count = await db.answer.findAll({
+                  where: { optionId: option.dataValues.id },
+                });
+                if (index === 0) totalAnswers += count.length;
+                return {
+                  answer: option.dataValues,
+                  count: count.length,
+                };
+              });
+            return {
+              question: question.dataValues,
+              answers: answers,
+            };
+          });
+        return {
+          survey: survey.dataValues,
+          questionsResults: questionResults,
+          totalAnswers: totalAnswers,
+        };
+      });
     },
   },
   Mutation: {

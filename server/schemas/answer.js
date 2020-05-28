@@ -32,13 +32,13 @@ export const resolvers = {
   Mutation: {
     createAnswer: (root, { input }, { db, currentUserId }) => {
       if (currentUserId) {
-        db.answer
+        return db.answer
           .findAll({
             where: { userId: currentUserId, optionId: input?.optionId },
           })
           .then((answer) => {
-            if (!answer) {
-              db.answer.create({
+            if (!answer || answer.length === 0) {
+              return db.answer.create({
                 optionId: input.optionId,
                 userId: currentUserId,
               });
@@ -47,7 +47,7 @@ export const resolvers = {
             }
           });
       } else {
-        db.answer.create({
+        return db.answer.create({
           optionId: input.optionId,
           userId: null,
         });

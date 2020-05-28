@@ -5,6 +5,7 @@ import LogInScreen from "../screens/LogIn";
 
 import SurveysScreen from "../screens/Surveys";
 import AnswerSurveyScreen from "../screens/AnswerSurvey";
+import ResultsScreen from "../screens/Results";
 
 import SignUpScreen from "../screens/SignUp";
 
@@ -26,6 +27,7 @@ const AppNavigator = () => {
           <Stack.Navigator initialRouteName="Surveys" headerMode="none">
             <Stack.Screen name="Surveys" component={SurveysScreen} />
             <Stack.Screen name="AnswerSurvey" component={AnswerSurveyScreen} />
+            <Stack.Screen name="Results" component={ResultsScreen} />
           </Stack.Navigator>
         ) : (
           <LoginNavigator initialParams={{ setUser: setUser }} />

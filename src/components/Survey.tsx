@@ -39,7 +39,9 @@ const Survey = ({ navigation, survey }: Props) => {
                 selectedOptions: [],
               })
             : isClosed
-            ? console.log("results")
+            ? navigation.navigate("Results", {
+                survey: survey,
+              })
             : console.log("active survey");
         }}
       >
