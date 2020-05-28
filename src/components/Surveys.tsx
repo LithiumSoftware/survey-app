@@ -4,7 +4,7 @@ import { View, Text } from "react-native";
 import { IconButton } from "react-native-paper";
 
 import MainScrollableContainer from "./MainScrollableContainer";
-import HeaderLogo from "./HeaderLogo";
+import Header from "./Header";
 import Title from "./Title";
 import Survey from "./Survey";
 import FABIcon from "./FABIcon";
@@ -15,7 +15,13 @@ import { Plus, MessageBulletedOff, NotConnected } from "../assets/icons";
 import { useSurveysQuery } from "../../graphql/generated";
 import NormalizeSize from "../utils/NormalizeSize";
 
-const Surveys = ({ navigation }: { navigation: any }) => {
+const Surveys = ({
+  navigation,
+  userId,
+}: {
+  navigation: any;
+  userId: string;
+}) => {
   const { data, loading } = useSurveysQuery({});
   const [surveys, setSurveys] = useState(data?.surveys);
 
@@ -39,7 +45,7 @@ const Surveys = ({ navigation }: { navigation: any }) => {
     return (
       <>
         <MainScrollableContainer>
-          <HeaderLogo />
+          <Header navigation={navigation} />
           <View>
             <Title>Active surveys</Title>
             <View>

@@ -30,7 +30,7 @@ const LogIn = ({
           },
         }) => {
           if (id) {
-            AsyncStorage.setItem("logged_in", id).then(() => setUser(true));
+            AsyncStorage.setItem("logged_in", id).then(() => setUser(id));
           }
         }
       )
