@@ -66,7 +66,7 @@ export type Mutation = {
   _empty?: Maybe<Scalars['String']>;
   createAnswer: Answer;
   createSurvey: Survey;
-  toggleOpen: Scalars['Boolean'];
+  closeSurvey: Scalars['Boolean'];
   signedUser?: Maybe<Scalars['String']>;
   loggedUser?: Maybe<Scalars['String']>;
 };
@@ -82,7 +82,7 @@ export type MutationCreateSurveyArgs = {
 };
 
 
-export type MutationToggleOpenArgs = {
+export type MutationCloseSurveyArgs = {
   id: Scalars['ID'];
 };
 
@@ -186,6 +186,16 @@ export type User = {
   updatedAt?: Maybe<Scalars['Date']>;
 };
 
+export type CloseSurveyMutationVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type CloseSurveyMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'closeSurvey'>
+);
+
 export type CreateAnswerMutationVariables = {
   optionId: Scalars['ID'];
 };
@@ -241,16 +251,11 @@ export type CurrentUserQuery = (
   )> }
 );
 
-<<<<<<< HEAD
 export type ResultsQueryVariables = {
-=======
-export type ToggleOpenMutationVariables = {
->>>>>>> close survey first approach
   id: Scalars['ID'];
 };
 
 
-<<<<<<< HEAD
 export type ResultsQuery = (
   { __typename?: 'Query' }
   & { results?: Maybe<(
@@ -274,11 +279,6 @@ export type ResultsQuery = (
       )>> }
     )> }
   )> }
-=======
-export type ToggleOpenMutation = (
-  { __typename?: 'Mutation' }
-  & Pick<Mutation, 'toggleOpen'>
->>>>>>> close survey first approach
 );
 
 export type SurveysQueryVariables = {};
@@ -301,6 +301,36 @@ export type SurveysQuery = (
 );
 
 
+export const CloseSurveyDocument = gql`
+    mutation CloseSurvey($id: ID!) {
+  closeSurvey(id: $id)
+}
+    `;
+export type CloseSurveyMutationFn = ApolloReactCommon.MutationFunction<CloseSurveyMutation, CloseSurveyMutationVariables>;
+
+/**
+ * __useCloseSurveyMutation__
+ *
+ * To run a mutation, you first call `useCloseSurveyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCloseSurveyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [closeSurveyMutation, { data, loading, error }] = useCloseSurveyMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useCloseSurveyMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CloseSurveyMutation, CloseSurveyMutationVariables>) {
+        return ApolloReactHooks.useMutation<CloseSurveyMutation, CloseSurveyMutationVariables>(CloseSurveyDocument, baseOptions);
+      }
+export type CloseSurveyMutationHookResult = ReturnType<typeof useCloseSurveyMutation>;
+export type CloseSurveyMutationResult = ApolloReactCommon.MutationResult<CloseSurveyMutation>;
+export type CloseSurveyMutationOptions = ApolloReactCommon.BaseMutationOptions<CloseSurveyMutation, CloseSurveyMutationVariables>;
 export const CreateAnswerDocument = gql`
     mutation CreateAnswer($optionId: ID!) {
   createAnswer(input: {optionId: $optionId}) {
@@ -405,7 +435,6 @@ export function useLoginMutation(baseOptions?: ApolloReactHooks.MutationHookOpti
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = ApolloReactCommon.MutationResult<LoginMutation>;
 export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
-<<<<<<< HEAD
 export const CurrentUserDocument = gql`
     query CurrentUser {
   me {
@@ -440,9 +469,6 @@ export function useCurrentUserLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>;
 export type CurrentUserLazyQueryHookResult = ReturnType<typeof useCurrentUserLazyQuery>;
 export type CurrentUserQueryResult = ApolloReactCommon.QueryResult<CurrentUserQuery, CurrentUserQueryVariables>;
-=======
-<<<<<<< HEAD
->>>>>>> close survey first approach
 export const ResultsDocument = gql`
     query Results($id: ID!) {
   results(id: $id) {
@@ -479,33 +505,11 @@ export const ResultsDocument = gql`
  *
  * @example
  * const { data, loading, error } = useResultsQuery({
-=======
-export const ToggleOpenDocument = gql`
-    mutation ToggleOpen($id: ID!) {
-  toggleOpen(id: $id)
-}
-    `;
-export type ToggleOpenMutationFn = ApolloReactCommon.MutationFunction<ToggleOpenMutation, ToggleOpenMutationVariables>;
-
-/**
- * __useToggleOpenMutation__
- *
- * To run a mutation, you first call `useToggleOpenMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useToggleOpenMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [toggleOpenMutation, { data, loading, error }] = useToggleOpenMutation({
->>>>>>> close survey first approach
  *   variables: {
  *      id: // value for 'id'
  *   },
  * });
  */
-<<<<<<< HEAD
 export function useResultsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ResultsQuery, ResultsQueryVariables>) {
         return ApolloReactHooks.useQuery<ResultsQuery, ResultsQueryVariables>(ResultsDocument, baseOptions);
       }
@@ -515,14 +519,6 @@ export function useResultsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHook
 export type ResultsQueryHookResult = ReturnType<typeof useResultsQuery>;
 export type ResultsLazyQueryHookResult = ReturnType<typeof useResultsLazyQuery>;
 export type ResultsQueryResult = ApolloReactCommon.QueryResult<ResultsQuery, ResultsQueryVariables>;
-=======
-export function useToggleOpenMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<ToggleOpenMutation, ToggleOpenMutationVariables>) {
-        return ApolloReactHooks.useMutation<ToggleOpenMutation, ToggleOpenMutationVariables>(ToggleOpenDocument, baseOptions);
-      }
-export type ToggleOpenMutationHookResult = ReturnType<typeof useToggleOpenMutation>;
-export type ToggleOpenMutationResult = ApolloReactCommon.MutationResult<ToggleOpenMutation>;
-export type ToggleOpenMutationOptions = ApolloReactCommon.BaseMutationOptions<ToggleOpenMutation, ToggleOpenMutationVariables>;
->>>>>>> close survey first approach
 export const SurveysDocument = gql`
     query Surveys {
   surveys {

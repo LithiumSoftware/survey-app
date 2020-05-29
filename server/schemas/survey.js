@@ -10,7 +10,7 @@ export const typeDef = `
 
   extend type Mutation {
     createSurvey(input: CreateSurveyInput!): Survey!
-    toggleOpen(id: ID!): Boolean!
+    closeSurvey(id: ID!): Boolean!
   }
 
   input CreateSurveyInput {
@@ -172,17 +172,16 @@ export const resolvers = {
           );
         })
     ),
-    toggleOpen: authenticated((root, { id }, { db, currentUserId }) =>
+    closeSurvey: (root, { id }, { db, currentUserId }) =>
       db.survey
         .findByPk(id)
         .then((survey) =>
           survey
-            .update({ opened: !survey.dataValues.opened })
-            .then((updated) => (updated ? true : false))
-            .catch(() => false)
+            .update({ opened: false })
+            .then(() => false)
+            .catch(() => true)
         )
-        .catch(() => false)
-    ),
+        .catch(() => true),
   },
   Survey: {
     user: (survey) => survey.getUser(),

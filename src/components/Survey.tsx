@@ -86,7 +86,7 @@ const TakeSurveyButton = styled(Button)`
   height: ${NormalizeSize(36)}px;
   justify-content: center;
   background-color: #ffb900;
-  border-radius: ${NormalizeSize(20)}px;
+  border-radius: 25px !important;
   margin-top: ${NormalizeSize(8)}px;
   margin-left: ${NormalizeSize(8)}px;
   margin-right: ${NormalizeSize(8)}px;

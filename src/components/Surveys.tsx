@@ -14,8 +14,8 @@ import FullScreenMessage from "./FullScreenMessage";
 import { Plus, MessageBulletedOff, NotConnected } from "../assets/icons";
 import {
   useSurveysQuery,
-  useCurrentUserQuery
-  useToggleOpenMutation,
+  useCurrentUserQuery,
+  useCloseSurveyMutation,
   SurveysDocument,
 } from "../../graphql/generated";
 import NormalizeSize from "../utils/NormalizeSize";
@@ -30,7 +30,7 @@ const Surveys = ({
   const { data, loading } = useSurveysQuery({});
   const { data: userData, loading: userLoading } = useCurrentUserQuery({});
   const [surveys, setSurveys] = useState(data?.surveys);
-  const [toggleOpen] = useToggleOpenMutation({});
+  const [closeSurveyMut] = useCloseSurveyMutation({});
 
   useEffect(() => {
     setSurveys(data?.surveys);
@@ -40,21 +40,22 @@ const Surveys = ({
     AsyncStorage.setItem("logged_in", "").then(() => setUserToken(null));
 
   const closeSurvey = (id: string) => {
-    toggleOpen({
+    closeSurveyMut({
       variables: { id: id },
-      update(cache, { data: { toggleOpen } }) {
+      update(cache: any, { data: { closeSurvey } }) {
         const cachedSurveys = cache.readQuery({ query: SurveysDocument });
         cachedSurveys.surveys.some((survey: any) => {
           if (survey.id === id) {
-            survey.opened = toggleOpen;
+            survey.opened = closeSurvey;
             return true;
-          } else {
-            return false;
           }
+
+          return true;
         });
+
         cache.writeQuery({ query: SurveysDocument, data: cachedSurveys });
       },
-    }).then((success) => success && navigation.navigate("Surveys"));
+    });
   };
 
   if (loading || userLoading) {
