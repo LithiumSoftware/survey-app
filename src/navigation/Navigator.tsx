@@ -7,6 +7,7 @@ import ResultsScreen from "../screens/Results";
 
 import LogInScreen from "../screens/LogIn";
 import SignUpScreen from "../screens/SignUp";
+import CreateSurveyScreen from "../screens/CreateSurvey";
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,7 @@ const AppNavigator = ({ loggedUser, setUserToken }: any) => (
       initialParams={{ setUserToken }}
     />
     <Stack.Screen name="Results" component={ResultsScreen} />
+    <Stack.Screen name="CreateSurvey" component={CreateSurveyScreen} />
   </Stack.Navigator>
 );
 

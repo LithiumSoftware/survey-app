@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-paper";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -17,7 +17,6 @@ import {
   StyledHelperText,
 } from "./LogInForm";
 
-import styled from "styled-components/native";
 import { Eye, EyeOff } from "../assets/icons";
 
 const SignUpForm = ({
@@ -140,7 +139,6 @@ const SignUpForm = ({
                 onPress={() => setHideRptPw(!hideRptPw)}
               />
             </InputContainer>
-            <Gap />
             <FormButton onPress={handleSubmit}>
               <ButtonText>SIGN UP</ButtonText>
             </FormButton>
@@ -173,10 +171,5 @@ const signupSchema = Yup.object().shape({
     .required("Please enter the password confirmation")
     .oneOf([Yup.ref("password")], "Passwords do not match"),
 });
-
-const Gap = styled(View)`
-  height: calc(5%);
-  max-height: 150px;
-`;
 
 export default SignUpForm;

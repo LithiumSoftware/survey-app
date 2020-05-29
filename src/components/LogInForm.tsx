@@ -210,6 +210,7 @@ export const StyledHelperText = styled(HelperText)`
 `;
 
 const Gap = styled(View)`
+  height: 155px;
   max-height: 328px;
 `;
 

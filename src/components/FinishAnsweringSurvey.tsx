@@ -52,37 +52,37 @@ const FinishAnsweringSurvey = ({
             </Answers>
           </Container>
         </View>
-        <View>
-          {error && (
-            <ErrorText>Please answer all the questions before submit</ErrorText>
-          )}
-          <ButtonViewRow>
-            <StyledButton
-              mode="text"
-              color="#4f4f4f"
-              onPress={() => {
-                navigation.goBack();
-              }}
-            >
-              BACK
-            </StyledButton>
-            <SubmitButton
-              mode="text"
-              color="white"
-              onPress={() => {
-                const answer = answerSurvey();
-                if (answer) {
-                  setAnswered(true);
-                } else {
-                  setError(true);
-                }
-              }}
-            >
-              SUBMIT
-            </SubmitButton>
-          </ButtonViewRow>
-        </View>
       </MainNonScrollableContainer>
+      <ButtonsAndError>
+        {error && (
+          <ErrorText>Please answer all the questions before submit</ErrorText>
+        )}
+        <ButtonViewRow>
+          <StyledButton
+            mode="text"
+            color="#4f4f4f"
+            onPress={() => {
+              navigation.goBack();
+            }}
+          >
+            BACK
+          </StyledButton>
+          <SubmitButton
+            mode="text"
+            color="white"
+            onPress={() => {
+              const answer = answerSurvey();
+              if (answer) {
+                setAnswered(true);
+              } else {
+                setError(true);
+              }
+            }}
+          >
+            SUBMIT
+          </SubmitButton>
+        </ButtonViewRow>
+      </ButtonsAndError>
       {answered && (
         <FullScreenMessage
           navigation={navigation}
@@ -100,6 +100,14 @@ const FinishAnsweringSurvey = ({
   );
 };
 
+const ButtonsAndError = styled(View)`
+  position: absolute;
+  width: 100%;
+  padding-left: ${NormalizeSize(20)}px;
+  padding-right: ${NormalizeSize(20)}px;
+  bottom: ${NormalizeSize(40)}px;
+`;
+
 const ButtonViewRow = styled(View)`
   flex-direction: row;
   justify-content: space-between;
@@ -108,14 +116,14 @@ const ButtonViewRow = styled(View)`
 `;
 
 const StyledButton = styled(Button)`
-  border-radius: ${NormalizeSize(20)}px;
+  border-radius: 20px;
   width: ${NormalizeSize(146)}px;
   background-color: #ffb900;
   padding: ${NormalizeSize(4)}px;
 `;
 
 const SubmitButton = styled(Button)`
-  border-radius: ${NormalizeSize(20)}px;
+  border-radius: 20px;
   width: ${NormalizeSize(146)}px;
   background-color: #4f4f4f;
   padding: ${NormalizeSize(4)}px;
@@ -152,7 +160,7 @@ const Container = styled(View)`
   justify-content: center;
   align-items: center;
   background-color: #f2f2f2;
-  border-radius: ${NormalizeSize(20)}px;
+  border-radius: 20px;
   padding-top: ${NormalizeSize(60)}px;
   padding-bottom: ${NormalizeSize(60)}px;
   margin-bottom: ${NormalizeSize(16)}px;

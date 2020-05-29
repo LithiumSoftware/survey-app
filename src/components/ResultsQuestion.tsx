@@ -107,7 +107,7 @@ const StyledAnswerPercentage = styled.Text`
 const Container = styled.View`
   justify-content: center;
   background-color: #f2f2f2;
-  border-radius: ${NormalizeSize(20)}px;
+  border-radius: 20px;
   padding-left: ${NormalizeSize(8)}px;
   padding-top: ${NormalizeSize(16)}px;
   padding-right: ${NormalizeSize(8)}px;
