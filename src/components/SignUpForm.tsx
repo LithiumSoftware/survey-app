@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-paper";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -17,7 +17,6 @@ import {
   StyledHelperText,
 } from "./LogInForm";
 
-import styled from "styled-components/native";
 import { Eye, EyeOff } from "../assets/icons";
 
 const SignUpForm = ({
