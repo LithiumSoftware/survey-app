@@ -21,6 +21,7 @@ export interface OptionProps {
 }
 
 const CreateSurveyScreen = ({ route, navigation }: ScreenProps) => {
+  const [error, setError] = useState("");
   const [surveyTitle, setSurveyTitle] = useState("Untitled");
   const [drafted, setDrafted] = useState(false);
   const [published, setPublished] = useState(false);
@@ -30,13 +31,26 @@ const CreateSurveyScreen = ({ route, navigation }: ScreenProps) => {
       variables: {
         input: survey,
       },
-    }).then((result: any) => {
-      if (result?.data?.createSurvey) {
-        setSurveyTitle(result?.data?.createSurvey.title);
-        setPublished(result?.data?.createSurvey.published);
-        setDrafted(!result?.data?.createSurvey.published);
-      }
-    });
+    })
+      .then((result: any) => {
+        if (result?.data?.createSurvey) {
+          setSurveyTitle(result?.data?.createSurvey.title);
+          setPublished(result?.data?.createSurvey.published);
+          setDrafted(!result?.data?.createSurvey.published);
+          setError("");
+        } else {
+          setError("Please complete all questions and options");
+          setTimeout(() => {
+            setError("");
+          }, 2500);
+        }
+      })
+      .catch(() => {
+        setError("Please complete all questions and options");
+        setTimeout(() => {
+          setError("");
+        }, 2500);
+      });
   };
 
   if (published) {
@@ -58,7 +72,13 @@ const CreateSurveyScreen = ({ route, navigation }: ScreenProps) => {
       />
     );
   } else {
-    return <CreateSurvey navigation={navigation} createSurvey={createSurvey} />;
+    return (
+      <CreateSurvey
+        error={error}
+        navigation={navigation}
+        createSurvey={createSurvey}
+      />
+    );
   }
 };
 

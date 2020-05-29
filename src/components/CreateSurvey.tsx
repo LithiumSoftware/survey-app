@@ -10,11 +10,13 @@ import { SurveyProps, QuestionProps } from "../screens/CreateSurvey";
 import { MessageBulleted } from "../assets/icons";
 
 interface Props {
+  error: string;
   navigation: any;
   createSurvey: (survey: SurveyProps) => void;
 }
 
-const CreateSurvey = ({ navigation, createSurvey }: Props) => {
+const CreateSurvey = ({ error, navigation, createSurvey }: Props) => {
+  const [errorMessage, setErrorMessage] = useState(error);
   const [surveyTitle, setSurveyTitle] = useState("Untitled");
   const [questions, setQuestions] = useState<QuestionProps[]>([]);
 
@@ -78,37 +80,56 @@ const CreateSurvey = ({ navigation, createSurvey }: Props) => {
           ADD QUESTION
         </StyledAddQuestionButton>
       </MainScrollableContainer>
-      <ButtonViewRow>
-        <StyledSaveButton
-          mode="text"
-          color="white"
-          onPress={() => {
-            createSurvey({
-              title: surveyTitle,
-              questions: questions,
-              published: false,
-            });
-          }}
-        >
-          SAVE
-        </StyledSaveButton>
-        <StyledPublishButton
-          mode="text"
-          color="#4f4f4f"
-          onPress={() => {
-            createSurvey({
-              title: surveyTitle,
-              questions: questions,
-              published: true,
-            });
-          }}
-        >
-          PUBLISH
-        </StyledPublishButton>
-      </ButtonViewRow>
+
+      <ButtonsAndError>
+        <ErrorText>{error}</ErrorText>
+        <ButtonViewRow>
+          <StyledSaveButton
+            mode="text"
+            color="white"
+            onPress={() => {
+              createSurvey({
+                title: surveyTitle,
+                questions: questions,
+                published: false,
+              });
+            }}
+          >
+            SAVE
+          </StyledSaveButton>
+          <StyledPublishButton
+            mode="text"
+            color="#4f4f4f"
+            onPress={() => {
+              createSurvey({
+                title: surveyTitle,
+                questions: questions,
+                published: true,
+              });
+            }}
+          >
+            PUBLISH
+          </StyledPublishButton>
+        </ButtonViewRow>
+      </ButtonsAndError>
     </>
   );
 };
+
+const ErrorText = styled.Text`
+  color: #ff0c3e;
+  font-size: 14px;
+  text-align: center;
+  padding-bottom: ${NormalizeSize(12)}px;
+`;
+
+const ButtonsAndError = styled(View)`
+  position: absolute;
+  width: 100%;
+  padding-left: ${NormalizeSize(20)}px;
+  padding-right: ${NormalizeSize(20)}px;
+  bottom: ${NormalizeSize(40)}px;
+`;
 
 const TitleTextInput = styled(TextInput)`
   font-size: ${NormalizeSize(36)}px;
@@ -124,11 +145,6 @@ const HeaderView = styled(View)`
 
 const ButtonViewRow = styled(View)`
   flex-direction: row;
-  position: absolute;
-  width: 100%;
-  padding-left: ${NormalizeSize(20)}px;
-  padding-right: ${NormalizeSize(20)}px;
-  bottom: ${NormalizeSize(40)}px;
   justify-content: space-between;
   align-items: center;
   height: ${NormalizeSize(41)}px;
