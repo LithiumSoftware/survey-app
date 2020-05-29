@@ -31,7 +31,10 @@ const SignUp = ({
           },
         }) => {
           if (id) {
-            AsyncStorage.setItem("logged_in", id).then(() => setUser(id));
+            AsyncStorage.setItem("logged_in", id).then(() => {
+              setUser(id);
+              navigation.navigate("Surveys", { loggedUser: id });
+            });
           }
         }
       )

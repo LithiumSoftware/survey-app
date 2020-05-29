@@ -3,13 +3,17 @@ import styled from "styled-components/native";
 //import { TouchableOpacity } from "react-native";
 import NormalizeSize from "../utils/NormalizeSize";
 
-const HeaderView = ({ navigation }: { navigation: any }) => (
+const HeaderView = ({ navigation, user }: { navigation: any; user: any }) => (
   <Header>
     <StyledImage source={require("../assets/lithium-logo.png")} />
 
-    <LogInButton onPress={() => navigation.navigate("LogIn")}>
-      <ButtonText>Log in</ButtonText>
-    </LogInButton>
+    {user ? (
+      <ButtonText>user</ButtonText>
+    ) : (
+      <LogInButton onPress={() => navigation.navigate("LogIn")}>
+        <ButtonText>Log in</ButtonText>
+      </LogInButton>
+    )}
   </Header>
 );
 
