@@ -9,10 +9,17 @@ interface Props {
   navigation: any;
   survey: any;
   closeSurvey: (id: string) => void;
+  publishSurvey: (id: string) => void;
   isAdmin: boolean;
 }
 
-const Survey = ({ navigation, survey, closeSurvey, isAdmin }: Props) => {
+const Survey = ({
+  navigation,
+  survey,
+  closeSurvey,
+  publishSurvey,
+  isAdmin,
+}: Props) => {
   const isActive = survey.published === true && survey.opened === true;
   const isClosed = survey.published === true && survey.opened === false;
 
@@ -49,7 +56,7 @@ const Survey = ({ navigation, survey, closeSurvey, isAdmin }: Props) => {
               ? navigation.navigate("Results", {
                   survey: survey,
                 })
-              : closeSurvey("active survey");
+              : publishSurvey(survey.id);
           }}
         >
           {isActive ? "TAKE SURVEY" : isClosed ? "RESULTS" : "ACTIVE SURVEY"}

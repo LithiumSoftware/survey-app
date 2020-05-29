@@ -67,6 +67,7 @@ export type Mutation = {
   createAnswer: Answer;
   createSurvey: Survey;
   closeSurvey: Scalars['Boolean'];
+  publishSurvey: Scalars['Boolean'];
   signedUser?: Maybe<Scalars['String']>;
   loggedUser?: Maybe<Scalars['String']>;
 };
@@ -83,6 +84,11 @@ export type MutationCreateSurveyArgs = {
 
 
 export type MutationCloseSurveyArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationPublishSurveyArgs = {
   id: Scalars['ID'];
 };
 
@@ -168,7 +174,7 @@ export type Survey = {
   questions: Array<Question>;
   opened: Scalars['Boolean'];
   published: Scalars['Boolean'];
-  answered: Scalars['Boolean'];
+  answered?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['Date']>;
   updatedAt?: Maybe<Scalars['Date']>;
 };
@@ -260,6 +266,16 @@ export type LoginMutationVariables = {
 export type LoginMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'loggedUser'>
+);
+
+export type PublishSurveyMutationVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type PublishSurveyMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'publishSurvey'>
 );
 
 export type CurrentUserQueryVariables = {};
@@ -499,6 +515,36 @@ export function useLoginMutation(baseOptions?: ApolloReactHooks.MutationHookOpti
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = ApolloReactCommon.MutationResult<LoginMutation>;
 export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const PublishSurveyDocument = gql`
+    mutation PublishSurvey($id: ID!) {
+  publishSurvey(id: $id)
+}
+    `;
+export type PublishSurveyMutationFn = ApolloReactCommon.MutationFunction<PublishSurveyMutation, PublishSurveyMutationVariables>;
+
+/**
+ * __usePublishSurveyMutation__
+ *
+ * To run a mutation, you first call `usePublishSurveyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `usePublishSurveyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [publishSurveyMutation, { data, loading, error }] = usePublishSurveyMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function usePublishSurveyMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<PublishSurveyMutation, PublishSurveyMutationVariables>) {
+        return ApolloReactHooks.useMutation<PublishSurveyMutation, PublishSurveyMutationVariables>(PublishSurveyDocument, baseOptions);
+      }
+export type PublishSurveyMutationHookResult = ReturnType<typeof usePublishSurveyMutation>;
+export type PublishSurveyMutationResult = ApolloReactCommon.MutationResult<PublishSurveyMutation>;
+export type PublishSurveyMutationOptions = ApolloReactCommon.BaseMutationOptions<PublishSurveyMutation, PublishSurveyMutationVariables>;
 export const CurrentUserDocument = gql`
     query CurrentUser {
   me {
