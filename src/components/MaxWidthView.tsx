@@ -20,7 +20,7 @@ const CenterChild = styled.View`
 `;
 
 const MaxWidth = styled.View`
-  flex-grow: 1;
+  flex: 1;
   margin: auto
   flex-direction: column;
   width: 100%
