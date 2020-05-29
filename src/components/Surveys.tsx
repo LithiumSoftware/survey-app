@@ -16,6 +16,7 @@ import {
   useSurveysQuery,
   useCurrentUserQuery,
   useCloseSurveyMutation,
+  usePublishSurveyMutation,
   SurveysDocument,
 } from "../../graphql/generated";
 import NormalizeSize from "../utils/NormalizeSize";
@@ -32,6 +33,7 @@ const Surveys = ({
   const { data: userData, loading: userLoading } = useCurrentUserQuery({});
   const [surveys, setSurveys] = useState(data?.surveys);
   const [closeSurveyMut] = useCloseSurveyMutation({});
+  const [publishSurveyMut] = usePublishSurveyMutation({});
 
   useEffect(() => {
     setSurveys(data?.surveys);
@@ -50,7 +52,24 @@ const Surveys = ({
             survey.opened = closeSurvey;
             return true;
           }
+          return true;
+        });
 
+        cache.writeQuery({ query: SurveysDocument, data: cachedSurveys });
+      },
+    });
+  };
+
+  const publishSurvey = (id: string) => {
+    publishSurveyMut({
+      variables: { id: id },
+      update(cache: any, { data: { publishSurvey } }) {
+        const cachedSurveys = cache.readQuery({ query: SurveysDocument });
+        cachedSurveys.surveys.some((survey: any) => {
+          if (survey.id === id) {
+            survey.published = publishSurvey;
+            return true;
+          }
           return true;
         });
 
@@ -85,6 +104,7 @@ const Surveys = ({
                   survey={survey}
                   navigation={navigation}
                   closeSurvey={closeSurvey}
+                  publishSurvey={publishSurvey}
                   isAdmin={userData?.me?.role === "ADMIN"}
                 />
               ))}
@@ -113,6 +133,7 @@ const Surveys = ({
                     survey={survey}
                     navigation={navigation}
                     closeSurvey={closeSurvey}
+                    publishSurvey={publishSurvey}
                   />
                 ))}
               </View>
@@ -126,6 +147,7 @@ const Surveys = ({
                 survey={survey}
                 navigation={navigation}
                 closeSurvey={closeSurvey}
+                publishSurvey={publishSurvey}
               />
             ))}
           </View>
