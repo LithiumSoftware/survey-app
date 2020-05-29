@@ -31,7 +31,7 @@ const ResultsQuestion = ({
               {answer.answer.text.toUpperCase()}
             </StyledAnswerName>
             <StyledAnswerPercentage>
-              {(answer.count / totalAnswers) * 100}%
+              {((answer.count / totalAnswers) * 100).toFixed(2)}%
             </StyledAnswerPercentage>
           </StyledViewText>
         </StyledViewProgress>
