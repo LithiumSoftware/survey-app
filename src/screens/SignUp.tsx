@@ -10,7 +10,7 @@ import SignUpForm from "../components/SignUpForm";
 const SignUp = ({
   navigation,
   route: {
-    params: { setUser },
+    params: { setUserToken },
   },
 }: ScreenProps) => {
   const [signUpUser] = useSignupMutation();
@@ -24,20 +24,14 @@ const SignUp = ({
         password: values.password,
       },
     })
-      .then(
-        ({
-          data: {
-            signedUser: { id },
-          },
-        }) => {
-          if (id) {
-            AsyncStorage.setItem("logged_in", id).then(() => {
-              setUser(id);
-              navigation.navigate("Surveys", { loggedUser: id });
-            });
-          }
+      .then(({ data: { signedUser } }) => {
+        if (signedUser) {
+          AsyncStorage.setItem("logged_in", signedUser).then(() => {
+            setUserToken(signedUser);
+            navigation.navigate("Surveys", { loggedUser: true });
+          });
         }
-      )
+      })
       .catch((err: any) => {
         if (err.message.includes("Both")) {
           setErrors({

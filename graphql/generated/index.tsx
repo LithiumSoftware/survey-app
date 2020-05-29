@@ -67,8 +67,8 @@ export type Mutation = {
   createAnswer: Answer;
   createSurvey: Survey;
   toggleOpen: Scalars['Boolean'];
-  signedUser?: Maybe<User>;
-  loggedUser?: Maybe<User>;
+  signedUser?: Maybe<Scalars['String']>;
+  loggedUser?: Maybe<Scalars['String']>;
 };
 
 
@@ -216,10 +216,7 @@ export type SignupMutationVariables = {
 
 export type SignupMutation = (
   { __typename?: 'Mutation' }
-  & { signedUser?: Maybe<(
-    { __typename?: 'User' }
-    & Pick<User, 'id'>
-  )> }
+  & Pick<Mutation, 'signedUser'>
 );
 
 export type LoginMutationVariables = {
@@ -230,9 +227,17 @@ export type LoginMutationVariables = {
 
 export type LoginMutation = (
   { __typename?: 'Mutation' }
-  & { loggedUser?: Maybe<(
+  & Pick<Mutation, 'loggedUser'>
+);
+
+export type CurrentUserQueryVariables = {};
+
+
+export type CurrentUserQuery = (
+  { __typename?: 'Query' }
+  & { me?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'id'>
+    & Pick<User, 'id' | 'username' | 'role'>
   )> }
 );
 
@@ -263,17 +268,6 @@ export type ResultsQuery = (
         ) }
       )>> }
     )> }
-)> }
-);
-
-export type CurrentUserQueryVariables = {};
-
-
-export type CurrentUserQuery = (
-  { __typename?: 'Query' }
-  & { me?: Maybe<(
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'username' | 'role'>
   )> }
 );
 
@@ -339,9 +333,7 @@ export type CreateAnswerMutationResult = ApolloReactCommon.MutationResult<Create
 export type CreateAnswerMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateAnswerMutation, CreateAnswerMutationVariables>;
 export const SignupDocument = gql`
     mutation Signup($username: String!, $fullname: String!, $email: String!, $password: String!) {
-  signedUser(input: {username: $username, fullName: $fullname, email: $email, password: $password}) {
-    id
-  }
+  signedUser(input: {username: $username, fullName: $fullname, email: $email, password: $password})
 }
     `;
 export type SignupMutationFn = ApolloReactCommon.MutationFunction<SignupMutation, SignupMutationVariables>;
@@ -374,9 +366,7 @@ export type SignupMutationResult = ApolloReactCommon.MutationResult<SignupMutati
 export type SignupMutationOptions = ApolloReactCommon.BaseMutationOptions<SignupMutation, SignupMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($identifier: String!, $password: String!) {
-  loggedUser(input: {identifier: $identifier, password: $password}) {
-    id
-  }
+  loggedUser(input: {identifier: $identifier, password: $password})
 }
     `;
 export type LoginMutationFn = ApolloReactCommon.MutationFunction<LoginMutation, LoginMutationVariables>;
@@ -405,6 +395,40 @@ export function useLoginMutation(baseOptions?: ApolloReactHooks.MutationHookOpti
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = ApolloReactCommon.MutationResult<LoginMutation>;
 export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const CurrentUserDocument = gql`
+    query CurrentUser {
+  me {
+    id
+    username
+    role
+  }
+}
+    `;
+
+/**
+ * __useCurrentUserQuery__
+ *
+ * To run a query within a React component, call `useCurrentUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCurrentUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCurrentUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCurrentUserQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>) {
+        return ApolloReactHooks.useQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, baseOptions);
+      }
+export function useCurrentUserLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, baseOptions);
+        }
+export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>;
+export type CurrentUserLazyQueryHookResult = ReturnType<typeof useCurrentUserLazyQuery>;
+export type CurrentUserQueryResult = ApolloReactCommon.QueryResult<CurrentUserQuery, CurrentUserQueryVariables>;
 export const ResultsDocument = gql`
     query Results($id: ID!) {
   results(id: $id) {
@@ -428,35 +452,18 @@ export const ResultsDocument = gql`
     totalAnswers
   }
 }
-    `;  
-export const CurrentUserDocument = gql`
-    query CurrentUser {
-  me {
-    id
-    username
-    role
-  }
-}
     `;
 
 /**
-<<<<<<< HEAD
  * __useResultsQuery__
  *
  * To run a query within a React component, call `useResultsQuery` and pass it any options that fit your needs.
  * When your component renders, `useResultsQuery` returns an object from Apollo Client that contains loading, error, and data properties
-=======
- * __useCurrentUserQuery__
- *
- * To run a query within a React component, call `useCurrentUserQuery` and pass it any options that fit your needs.
- * When your component renders, `useCurrentUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
->>>>>>> 618f9b2... Header now checks if there's an user logged in, issues with currentUserId @backend
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
-<<<<<<< HEAD
  * const { data, loading, error } = useResultsQuery({
  *   variables: {
  *      id: // value for 'id'
@@ -472,22 +479,6 @@ export function useResultsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHook
 export type ResultsQueryHookResult = ReturnType<typeof useResultsQuery>;
 export type ResultsLazyQueryHookResult = ReturnType<typeof useResultsLazyQuery>;
 export type ResultsQueryResult = ApolloReactCommon.QueryResult<ResultsQuery, ResultsQueryVariables>;
-=======
- * const { data, loading, error } = useCurrentUserQuery({
- *   variables: {
- *   },
- * });
- */
-export function useCurrentUserQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>) {
-        return ApolloReactHooks.useQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, baseOptions);
-      }
-export function useCurrentUserLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, baseOptions);
-        }
-export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>;
-export type CurrentUserLazyQueryHookResult = ReturnType<typeof useCurrentUserLazyQuery>;
-export type CurrentUserQueryResult = ApolloReactCommon.QueryResult<CurrentUserQuery, CurrentUserQueryVariables>;
->>>>>>> 618f9b2... Header now checks if there's an user logged in, issues with currentUserId @backend
 export const SurveysDocument = gql`
     query Surveys {
   surveys {

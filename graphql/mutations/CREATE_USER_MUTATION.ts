@@ -14,8 +14,6 @@ export default gql`
         email: $email
         password: $password
       }
-    ) {
-      id
-    }
+    )
   }
 `;

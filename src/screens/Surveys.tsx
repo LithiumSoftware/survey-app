@@ -5,8 +5,10 @@ import ScreenProps from "./ScreenProps";
 const SurveysScreen = ({
   navigation,
   route: {
-    params: { loggedUser },
+    params: { setUserToken },
   },
-}: ScreenProps) => <Surveys navigation={navigation} userId={loggedUser} />;
+}: ScreenProps) => (
+  <Surveys navigation={navigation} setUserToken={setUserToken} />
+);
 
 export default SurveysScreen;

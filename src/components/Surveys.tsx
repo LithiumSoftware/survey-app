@@ -17,12 +17,10 @@ import NormalizeSize from "../utils/NormalizeSize";
 
 const Surveys = ({
   navigation,
-  userId,
-  setUser,
+  setUserToken,
 }: {
   navigation: any;
-  userId: string;
-  setUser: any;
+  setUserToken: any;
 }) => {
   const { data, loading } = useSurveysQuery({});
   const { data: userData, loading: userLoading } = useCurrentUserQuery({});
@@ -33,7 +31,7 @@ const Surveys = ({
   }, [data, data?.surveys]);
 
   const logOut = () =>
-    AsyncStorage.setItem("logged_in", "").then(() => setUser(null));
+    AsyncStorage.setItem("logged_in", "").then(() => setUserToken(null));
 
   if (loading || userLoading) {
     return <LoadingView />;

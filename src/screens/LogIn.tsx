@@ -8,7 +8,7 @@ import LogInForm from "../components/LogInForm";
 const LogIn = ({
   navigation,
   route: {
-    params: { setUser },
+    params: { setUserToken },
   },
 }: ScreenProps) => {
   const [logInUser] = useLoginMutation();
@@ -23,20 +23,14 @@ const LogIn = ({
         password: values.password,
       },
     })
-      .then(
-        ({
-          data: {
-            loggedUser: { id },
-          },
-        }) => {
-          if (id) {
-            AsyncStorage.setItem("logged_in", id).then(() => {
-              setUser(id);
-              navigation.navigate("Surveys", { loggedUser: id });
-            });
-          }
+      .then(({ data: { loggedUser } }) => {
+        if (loggedUser) {
+          AsyncStorage.setItem("logged_in", loggedUser).then(() => {
+            setUserToken(loggedUser);
+            navigation.navigate("Surveys", { loggedUser: true });
+          });
         }
-      )
+      })
       .catch((err: any) => {
         if (err.message.includes("email")) {
           setErrors({

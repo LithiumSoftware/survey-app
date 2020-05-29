@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, TouchableOpacity, View } from "react-native";
+import { Image, TouchableOpacity, View, Dimensions } from "react-native";
 import { TextInput, IconButton, HelperText } from "react-native-paper";
 
 import {
@@ -77,7 +77,9 @@ const LogInForm = ({ submition, navigateSignUp }: LogInFormProps) => {
                 onPress={() => setHidePw(!hidePw)}
               />
             </InputContainer>
-            <Gap />
+            <Gap
+              style={{ height: Dimensions.get("window").height * 0.05 + 155 }}
+            />
             <FormButton onPress={() => handleSubmit()}>
               <ButtonText>LOGIN</ButtonText>
             </FormButton>
@@ -208,7 +210,6 @@ export const StyledHelperText = styled(HelperText)`
 `;
 
 const Gap = styled(View)`
-  height: calc(5% + 155px);
   max-height: 328px;
 `;
 

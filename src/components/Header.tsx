@@ -1,14 +1,30 @@
 import React from "react";
 import styled from "styled-components/native";
-//import { TouchableOpacity } from "react-native";
+import { View } from "react-native";
 import NormalizeSize from "../utils/NormalizeSize";
+import { ExitToApp } from "../assets/icons";
+import { IconButton } from "react-native-paper";
 
-const HeaderView = ({ navigation, user }: { navigation: any; user: any }) => (
+const HeaderView = ({
+  navigation,
+  user,
+  logOut,
+}: {
+  navigation: any;
+  user: any;
+  logOut: Function;
+}) => (
   <Header>
     <StyledImage source={require("../assets/lithium-logo.png")} />
 
     {user ? (
-      <ButtonText>user</ButtonText>
+      <UserInfo>
+        <View>
+          <Username>{user.username}</Username>
+          <Role>{user.role}</Role>
+        </View>
+        <LogOutButton icon={() => <ExitToApp />} onPress={() => logOut()} />
+      </UserInfo>
     ) : (
       <LogInButton onPress={() => navigation.navigate("LogIn")}>
         <ButtonText>Log in</ButtonText>
@@ -45,6 +61,26 @@ const Header = styled.View`
 const ButtonText = styled.Text`
   color: black;
   font-weight: 700;
+`;
+
+const UserInfo = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const Username = styled.Text`
+  display: flex;
+`;
+
+const Role = styled.Text`
+  color: #ffb900;
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const LogOutButton = styled(IconButton)`
+  margin: 0px;
 `;
 
 export default HeaderView;
