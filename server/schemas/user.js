@@ -7,8 +7,8 @@ export const typeDef = `
   }
 
   extend type Mutation {
-    signedUser(input: CreateUserInput!): User
-    loggedUser(input: LoginInput!): User
+    signedUser(input: CreateUserInput!): String
+    loggedUser(input: LoginInput!): String
   }
 
   type User {
@@ -55,7 +55,7 @@ export const resolvers = {
         .then((user) => {
           const tokens = setTokens(user);
           res.setHeader("Set-Cookie", `token=${tokens.accessToken}; httpOnly`);
-          return user;
+          return tokens.accessToken;
         })
         .catch((err) => {
           if (err.errors[0].message.includes("username")) {
@@ -90,7 +90,7 @@ export const resolvers = {
           }
           const tokens = setTokens(user);
           res.setHeader("Set-Cookie", `token=${tokens.accessToken}; httpOnly`);
-          return user;
+          return tokens.accessToken;
         })
         .catch((err) => {
           throw new UserInputError("Username or email isn't registered.");

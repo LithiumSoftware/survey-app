@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { View, Text } from "react-native";
+import styled from "styled-components/native";
+import { View, AsyncStorage } from "react-native";
 import { IconButton } from "react-native-paper";
 
 import MainScrollableContainer from "./MainScrollableContainer";
-import HeaderLogo from "./HeaderLogo";
+import Header from "./Header";
 import Title from "./Title";
 import Survey from "./Survey";
 import FABIcon from "./FABIcon";
@@ -12,18 +12,28 @@ import LoadingView from "./LoadingView";
 import FullScreenMessage from "./FullScreenMessage";
 
 import { Plus, MessageBulletedOff, NotConnected } from "../assets/icons";
-import { useSurveysQuery } from "../../graphql/generated";
+import { useSurveysQuery, useCurrentUserQuery } from "../../graphql/generated";
 import NormalizeSize from "../utils/NormalizeSize";
 
-const Surveys = ({ navigation }: { navigation: any }) => {
+const Surveys = ({
+  navigation,
+  setUserToken,
+}: {
+  navigation: any;
+  setUserToken: any;
+}) => {
   const { data, loading } = useSurveysQuery({});
+  const { data: userData, loading: userLoading } = useCurrentUserQuery({});
   const [surveys, setSurveys] = useState(data?.surveys);
 
   useEffect(() => {
     setSurveys(data?.surveys);
   }, [data, data?.surveys]);
 
-  if (loading) {
+  const logOut = () =>
+    AsyncStorage.setItem("logged_in", "").then(() => setUserToken(null));
+
+  if (loading || userLoading) {
     return <LoadingView />;
   } else if (surveys) {
     const activeSurveys = surveys?.filter(
@@ -39,7 +49,7 @@ const Surveys = ({ navigation }: { navigation: any }) => {
     return (
       <>
         <MainScrollableContainer>
-          <HeaderLogo />
+          <Header navigation={navigation} user={userData?.me} logOut={logOut} />
           <View>
             <Title>Active surveys</Title>
             <View>
@@ -126,14 +136,14 @@ const StyledIconButton = styled(IconButton)`
   margin-bottom: ${NormalizeSize(20)}px;
 `;
 
-const NoSurveys = styled(Text)`
+const NoSurveys = styled.Text`
   font-size: ${NormalizeSize(22)}px;
   font-weight: 500;
   color: #4f4f4f;
   letter-spacing: ${NormalizeSize(-0.5)}px;
 `;
 
-const Container = styled(View)`
+const Container = styled.View`
   justify-content: center;
   align-items: center;
   background-color: #f2f2f2;
