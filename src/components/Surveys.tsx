@@ -32,6 +32,8 @@ const Surveys = ({
   const [surveys, setSurveys] = useState(data?.surveys);
   const [closeSurveyMut] = useCloseSurveyMutation({});
 
+  console.log(userData);
+
   useEffect(() => {
     setSurveys(data?.surveys);
   }, [data, data?.surveys]);
@@ -141,7 +143,9 @@ const Surveys = ({
             </Container>
           )}
         </MainScrollableContainer>
-        <FABIcon icon={() => <Plus />} onPress={() => {}} />
+        {userData?.me?.role === "ADMIN" && (
+          <FABIcon icon={() => <Plus />} onPress={() => {}} />
+        )}
       </>
     );
   } else {
