@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Text, View } from "react-native";
-import CheckBox from "react-native-check-box";
 import NormalizeSize from "../utils/NormalizeSize";
+import { CheckedBox, UncheckedBox } from "../assets/icons";
+import { IconButton } from "react-native-paper";
 
 interface Props {
   option: any;
@@ -17,20 +18,33 @@ const AnswerOption = ({ option, isSelected, changeSelected }: Props) => {
   }, [isSelected]);
   return (
     <StyledViewRow>
-      <CheckBox
-        onClick={() => {
-          changeSelected(option);
-        }}
-        isChecked={isChecked}
-        uncheckedCheckBoxColor={"rgba(0, 0, 0, 0.54)"}
-      />
+      {isChecked ? (
+        <IconButton
+          color="rgba(0, 0, 0, 0.54)"
+          icon={() => (
+            <CheckedBox height={NormalizeSize(81)} width={NormalizeSize(81)} />
+          )}
+          onPress={() => changeSelected(option)}
+        />
+      ) : (
+        <IconButton
+          color="rgba(0, 0, 0, 0.54)"
+          icon={() => (
+            <UncheckedBox
+              height={NormalizeSize(81)}
+              width={NormalizeSize(81)}
+            />
+          )}
+          onPress={() => changeSelected(option)}
+        />
+      )}
       <OptionText>{option.text}</OptionText>
     </StyledViewRow>
   );
 };
 
 const OptionText = styled(Text)`
-  padding-left: ${NormalizeSize(12)}px;
+  padding-left: ${NormalizeSize(8)}px;
   font-size: ${NormalizeSize(16)}px;
   color: rgba(0, 0, 0, 0.6);
 `;
@@ -40,7 +54,10 @@ const StyledViewRow = styled(View)`
   justify-content: flex-start;
   background-color: #e8e8e8;
   align-items: center;
-  padding: ${NormalizeSize(18)}px;
+  padding-left: ${NormalizeSize(8)}px;
+  padding-top: ${NormalizeSize(12)}px;
+  padding-right: ${NormalizeSize(8)}px;
+  padding-bottom: ${NormalizeSize(12)}px;
   margin-bottom: ${NormalizeSize(16)}px;
 `;
 
