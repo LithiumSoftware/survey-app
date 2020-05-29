@@ -140,7 +140,6 @@ const SignUpForm = ({
                 onPress={() => setHideRptPw(!hideRptPw)}
               />
             </InputContainer>
-            <Gap />
             <FormButton onPress={handleSubmit}>
               <ButtonText>SIGN UP</ButtonText>
             </FormButton>
@@ -173,10 +172,5 @@ const signupSchema = Yup.object().shape({
     .required("Please enter the password confirmation")
     .oneOf([Yup.ref("password")], "Passwords do not match"),
 });
-
-const Gap = styled(View)`
-  height: calc(5%);
-  max-height: 150px;
-`;
 
 export default SignUpForm;

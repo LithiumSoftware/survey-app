@@ -33,7 +33,7 @@ const apolloServer = new ApolloServer({
 
     let user;
     try {
-      const token = req?.cookies?.token || "";
+      const token = req?.cookies?.token || req?.headers?.authorization;
       const maliciousToken = req?.headers["malicious-token"];
       if (token === maliciousToken) throw null;
       user = await (token ? verify(token, "supersecret") : undefined);
