@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
 import MainScrollableContainer from "./MainScrollableContainer";
-import { View, TextInput, Text } from "react-native";
+import { View, TextInput } from "react-native";
 import { Button } from "react-native-paper";
 import NormalizeSize from "../utils/NormalizeSize";
 import HeaderBack from "./HeaderBack";
@@ -17,8 +17,7 @@ interface Props {
 }
 
 const CreateSurvey = ({ error, navigation, createSurvey }: Props) => {
-  const [errorMessage, setErrorMessage] = useState(error);
-  const [surveyTitle, setSurveyTitle] = useState("Untitled");
+  const [surveyTitle, setSurveyTitle] = useState("");
   const [questions, setQuestions] = useState<QuestionProps[]>([]);
 
   const deleteQuestion = (index: number) => {
@@ -42,6 +41,7 @@ const CreateSurvey = ({ error, navigation, createSurvey }: Props) => {
           multiline={true}
           scrollEnabled={false}
           value={surveyTitle}
+          placeholder={"Untitled"}
           blurOnSubmit={true}
           onChangeText={(text: string) => {
             setSurveyTitle(text);

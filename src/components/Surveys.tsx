@@ -25,11 +25,13 @@ import MaxWidthView from "./MaxWidthView";
 const Surveys = ({
   navigation,
   setUserToken,
+  reloadSurveys,
 }: {
   navigation: any;
   setUserToken: any;
+  reloadSurveys: any;
 }) => {
-  const { data, loading } = useSurveysQuery({});
+  const { data, loading, refetch } = useSurveysQuery({});
   const { data: userData, loading: userLoading } = useCurrentUserQuery({});
   const [surveys, setSurveys] = useState(data?.surveys);
   const [closeSurveyMut] = useCloseSurveyMutation({});
@@ -38,6 +40,10 @@ const Surveys = ({
   useEffect(() => {
     setSurveys(data?.surveys);
   }, [data, data?.surveys]);
+
+  useEffect(() => {
+    refetch();
+  }, [reloadSurveys, refetch]);
 
   const logOut = () =>
     AsyncStorage.setItem("logged_in", "").then(() => setUserToken(null));
@@ -52,7 +58,7 @@ const Surveys = ({
             survey.opened = closeSurvey;
             return true;
           }
-          return true;
+          return false;
         });
 
         cache.writeQuery({ query: SurveysDocument, data: cachedSurveys });
@@ -70,7 +76,7 @@ const Surveys = ({
             survey.published = publishSurvey;
             return true;
           }
-          return true;
+          return false;
         });
 
         cache.writeQuery({ query: SurveysDocument, data: cachedSurveys });
@@ -167,7 +173,7 @@ const Surveys = ({
         </MainScrollableContainer>
         {userData?.me?.role === "ADMIN" && (
           <FABIcon
-            icon={() => <Plus />}
+            icon={() => <Plus width={24} />}
             onPress={() => navigation.navigate("CreateSurvey")}
           />
         )}
