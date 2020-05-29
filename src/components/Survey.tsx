@@ -29,7 +29,7 @@ const Survey = ({ navigation, survey, closeSurvey }: Props) => {
           </QuestionsDetail>
         </StyledViewColumn>
       </StyledViewRow>
-      {survey.answered ? (
+      {isActive && survey.answered ? (
         <AnsweredSurveyButton mode="text" color="#9a9385">
           Already Completed
         </AnsweredSurveyButton>
