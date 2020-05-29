@@ -141,10 +141,12 @@ const Surveys = ({
             </Container>
           )}
         </MainScrollableContainer>
-        <FABIcon
-          icon={() => <Plus />}
-          onPress={() => navigation.navigate("CreateSurvey")}
-        />
+        {userData?.me?.role === "ADMIN" && (
+          <FABIcon
+            icon={() => <Plus />}
+            onPress={() => navigation.navigate("CreateSurvey")}
+          />
+        )}
       </>
     );
   } else {
