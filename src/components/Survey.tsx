@@ -9,9 +9,10 @@ interface Props {
   navigation: any;
   survey: any;
   closeSurvey: (id: string) => void;
+  isAdmin: boolean;
 }
 
-const Survey = ({ navigation, survey, closeSurvey }: Props) => {
+const Survey = ({ navigation, survey, closeSurvey, isAdmin }: Props) => {
   const isActive = survey.published === true && survey.opened === true;
   const isClosed = survey.published === true && survey.opened === false;
 
@@ -54,7 +55,7 @@ const Survey = ({ navigation, survey, closeSurvey }: Props) => {
           {isActive ? "TAKE SURVEY" : isClosed ? "RESULTS" : "ACTIVE SURVEY"}
         </TakeSurveyButton>
       )}
-      {isActive && (
+      {isAdmin && isActive && (
         <CloseSurveyButton
           mode="text"
           color="black"

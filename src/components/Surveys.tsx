@@ -84,6 +84,7 @@ const Surveys = ({
                   survey={survey}
                   navigation={navigation}
                   closeSurvey={closeSurvey}
+                  isAdmin={userData?.me?.role === "ADMIN"}
                 />
               ))}
             </View>
