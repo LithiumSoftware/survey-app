@@ -24,7 +24,12 @@ const Icon = ({
 export default Icon;
 
 export const Plus = ({ fill = "#757575" }: IconProps) => (
-  <Icon fill={fill} path="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+  <Icon
+    height={29}
+    width={30}
+    fill={fill}
+    path="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
+  />
 );
 
 export const MessageBulleted = ({

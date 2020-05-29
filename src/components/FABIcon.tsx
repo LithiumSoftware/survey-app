@@ -7,6 +7,9 @@ const FABIcon = styled(FAB)`
   margin: ${NormalizeSize(28)}px;
   right: 0px;
   bottom: 0px;
+  border-radius: 55px;
+  height: ${NormalizeSize(55)}px;
+  width: ${NormalizeSize(55)}px;
   background-color: #ffb900;
 `;
 
