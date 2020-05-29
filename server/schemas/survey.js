@@ -11,6 +11,7 @@ export const typeDef = `
   extend type Mutation {
     createSurvey(input: CreateSurveyInput!): Survey!
     closeSurvey(id: ID!): Boolean!
+    publishSurvey(id: ID!): Boolean!
   }
 
   input CreateSurveyInput {
@@ -183,6 +184,16 @@ export const resolvers = {
             .catch(() => true)
         )
         .catch(() => true),
+    publishSurvey: (root, { id }, { db, currentUserId }) =>
+      db.survey
+        .findByPk(id)
+        .then((survey) =>
+          survey
+            .update({ published: true })
+            .then(() => true)
+            .catch(() => false)
+        )
+        .catch(() => false),
   },
   Survey: {
     user: (survey) => survey.getUser(),
