@@ -8,6 +8,7 @@ import Title from "../components/Title";
 import NormalizeSize from "../utils/NormalizeSize";
 import HeaderBack from "./HeaderBack";
 import FullScreenMessage from "./FullScreenMessage";
+import MaxWidthView from "./MaxWidthView";
 
 interface Props {
   navigation: any;
@@ -31,7 +32,7 @@ const FinishAnsweringSurvey = ({
   }, [answers]);
 
   return (
-    <>
+    <MaxWidthView>
       <HeaderBack navigation={navigation} />
       <MainNonScrollableContainer>
         <View>
@@ -99,7 +100,7 @@ const FinishAnsweringSurvey = ({
           }
         />
       )}
-    </>
+    </MaxWidthView>
   );
 };
 

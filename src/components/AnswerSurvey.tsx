@@ -7,6 +7,7 @@ import { View, Text } from "react-native";
 import { Button } from "react-native-paper";
 import NormalizeSize from "../utils/NormalizeSize";
 import HeaderBack from "./HeaderBack";
+import MaxWidthView from "./MaxWidthView";
 
 interface Props {
   navigation: any;
@@ -24,7 +25,7 @@ const AnswerSurvey = ({
   const [selectedOption, setSelectedOption] = useState<any>(null);
 
   return (
-    <>
+    <MaxWidthView>
       <MainScrollableContainer>
         <HeaderView>
           <HeaderBack navigation={navigation} />
@@ -80,7 +81,7 @@ const AnswerSurvey = ({
           NEXT
         </StyledButton>
       </ButtonViewRow>
-    </>
+    </MaxWidthView>
   );
 };
 

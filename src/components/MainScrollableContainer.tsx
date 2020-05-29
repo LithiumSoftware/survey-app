@@ -21,6 +21,7 @@ const Container = styled(ScrollView)`
   flex-direction: column;
   background-color: white;
   padding: ${NormalizeSize(20)}px;
+  max-width: 768px;
 `;
 
 export default MainScrollableContainer;

@@ -8,6 +8,7 @@ import ResultsQuestion from "./ResultsQuestion";
 import HeaderBack from "./HeaderBack";
 import { NoResults } from "../assets/icons";
 import { IconButton } from "react-native-paper";
+import MaxWidthView from "./MaxWidthView";
 
 interface Props {
   navigation: any;
@@ -16,38 +17,42 @@ interface Props {
 
 const ResultsSurvey = ({ navigation, result }: Props) => {
   return (
-    <MainScrollableContainer>
-      <HeaderView>
-        <HeaderBack navigation={navigation} />
-      </HeaderView>
-      <Title>{result?.survey?.title}</Title>
-      <View>
-        {result?.totalAnswers && result?.totalAnswers > 0 ? (
-          result?.questionsResults.map((questionResult: any, index: number) => (
-            <ResultsQuestion
-              key={questionResult.question.id}
-              questionResult={questionResult}
-              totalAnswers={result.totalAnswers}
-              questionIndex={index}
-            />
-          ))
-        ) : (
-          <ContainerError>
-            <StyledIconButton
-              icon={() => (
-                <NoResults
-                  height={NormalizeSize(61)}
-                  width={NormalizeSize(65)}
+    <MaxWidthView>
+      <MainScrollableContainer>
+        <HeaderView>
+          <HeaderBack navigation={navigation} />
+        </HeaderView>
+        <Title>{result?.survey?.title}</Title>
+        <View>
+          {result?.totalAnswers && result?.totalAnswers > 0 ? (
+            result?.questionsResults.map(
+              (questionResult: any, index: number) => (
+                <ResultsQuestion
+                  key={questionResult.question.id}
+                  questionResult={questionResult}
+                  totalAnswers={result.totalAnswers}
+                  questionIndex={index}
                 />
-              )}
-            />
-            <NoResultsMessage>
-              There are not answers for this survey
-            </NoResultsMessage>
-          </ContainerError>
-        )}
-      </View>
-    </MainScrollableContainer>
+              )
+            )
+          ) : (
+            <ContainerError>
+              <StyledIconButton
+                icon={() => (
+                  <NoResults
+                    height={NormalizeSize(61)}
+                    width={NormalizeSize(65)}
+                  />
+                )}
+              />
+              <NoResultsMessage>
+                There are not answers for this survey
+              </NoResultsMessage>
+            </ContainerError>
+          )}
+        </View>
+      </MainScrollableContainer>
+    </MaxWidthView>
   );
 };
 
