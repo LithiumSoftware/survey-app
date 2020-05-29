@@ -25,16 +25,16 @@ const CreateSurveyScreen = ({ route, navigation }: ScreenProps) => {
   const [drafted, setDrafted] = useState(false);
   const [published, setPublished] = useState(false);
   const [createSurveyMutation] = useCreateSurveyMutation({});
-  const createSurvey = (survey: SurveyProps) => {
-    return createSurveyMutation({
+  const createSurvey = async (survey: SurveyProps) => {
+    return await createSurveyMutation({
       variables: {
         input: survey,
       },
-    }).then((survey: any) => {
-      if (survey) {
-        setSurveyTitle(survey.title);
-        setPublished(survey.published);
-        setDrafted(!survey.published);
+    }).then((result: any) => {
+      if (result?.data?.createSurvey) {
+        setSurveyTitle(result?.data?.createSurvey.title);
+        setPublished(result?.data?.createSurvey.published);
+        setDrafted(!result?.data?.createSurvey.published);
       }
     });
   };

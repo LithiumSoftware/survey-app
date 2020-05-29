@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { OptionProps } from "../screens/CreateSurvey";
 import { TextInput } from "react-native-paper";
 import styled from "styled-components/native";
@@ -11,18 +11,21 @@ interface Props {
 }
 
 const AddOption = ({ options, index, setOptions }: Props) => {
+  const [optionTitle, setOptionTitle] = useState(options[index].text);
+
   return (
     <StyledTextInput
       label={`Option ${index + 1}`}
       editable={true}
       maxLength={40}
       scrollEnabled={false}
-      value={options[index].text}
+      value={optionTitle}
       blurOnSubmit={true}
       onChangeText={(text: string) => {
         const newOptions = options;
         newOptions[index].text = text;
         setOptions(newOptions);
+        setOptionTitle(text);
       }}
     />
   );

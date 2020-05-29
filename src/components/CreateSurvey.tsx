@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
 import MainScrollableContainer from "./MainScrollableContainer";
-import { View, TextInput } from "react-native";
+import { View, TextInput, Text } from "react-native";
 import { Button } from "react-native-paper";
 import NormalizeSize from "../utils/NormalizeSize";
 import HeaderBack from "./HeaderBack";
@@ -17,6 +17,16 @@ interface Props {
 const CreateSurvey = ({ navigation, createSurvey }: Props) => {
   const [surveyTitle, setSurveyTitle] = useState("Untitled");
   const [questions, setQuestions] = useState<QuestionProps[]>([]);
+
+  const deleteQuestion = (index: number) => {
+    setQuestions([]);
+    setTimeout(() => {
+      setQuestions([
+        ...questions.slice(0, index),
+        ...questions.slice(index + 1, questions.length),
+      ]);
+    }, 0);
+  };
 
   return (
     <>
@@ -34,11 +44,14 @@ const CreateSurvey = ({ navigation, createSurvey }: Props) => {
             setSurveyTitle(text);
           }}
         />
+        <Text>{JSON.stringify(questions)}</Text>
         {questions.map((question: QuestionProps, index: number) => (
           <AddQuestion
+            key={index}
             questions={questions}
             index={index}
             setQuestions={setQuestions}
+            deleteQuestion={deleteQuestion}
           />
         ))}
         <StyledAddQuestionButton
@@ -52,12 +65,15 @@ const CreateSurvey = ({ navigation, createSurvey }: Props) => {
             />
           )}
           onPress={() => {
-            const newQuestions = questions;
-            newQuestions.push({
-              text: "",
-              options: [{ text: "" }, { text: "" }],
-            });
-            setQuestions(newQuestions);
+            if (questions.length < 10) {
+              setQuestions([
+                ...questions,
+                {
+                  text: "",
+                  options: [{ text: "" }, { text: "" }],
+                },
+              ]);
+            }
           }}
         >
           ADD QUESTION
@@ -119,7 +135,9 @@ const ButtonViewRow = styled(View)`
   height: ${NormalizeSize(41)}px;
 `;
 
-const StyledAddQuestionButton = styled(Button)``;
+const StyledAddQuestionButton = styled(Button)`
+  margin-bottom: ${NormalizeSize(130)}px;
+`;
 
 const StyledSaveButton = styled(Button)`
   border-radius: ${NormalizeSize(20)}px;
