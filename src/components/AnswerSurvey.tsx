@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import MainNonScrollableContainer from "./MainNonScrollableContainer";
+import MainScrollableContainer from "./MainScrollableContainer";
 import AnswerOption from "../components/AnswerOption";
 import Title from "../components/Title";
 import { View, Text } from "react-native";
@@ -26,8 +26,10 @@ const AnswerSurvey = ({
 
   return (
     <MaxWidthView>
-      <HeaderBack navigation={navigation} />
-      <MainNonScrollableContainer>
+      <MainScrollableContainer>
+        <HeaderView>
+          <HeaderBack navigation={navigation} />
+        </HeaderView>
         <View>
           <Title>{survey?.title}</Title>
           <Container>
@@ -53,7 +55,7 @@ const AnswerSurvey = ({
             )}
           </Container>
         </View>
-      </MainNonScrollableContainer>
+      </MainScrollableContainer>
       <ButtonViewRow>
         <StyledButton
           mode="text"
@@ -89,6 +91,10 @@ const StyledViewRow = styled(View)`
   align-items: flex-start;
   padding-top: ${NormalizeSize(4)}px;
   padding-bottom: ${NormalizeSize(20)}px;
+`;
+
+const HeaderView = styled(View)`
+  margin-left: ${NormalizeSize(-20)}px;
 `;
 
 const ButtonViewRow = styled(View)`
@@ -132,6 +138,7 @@ const Container = styled(View)`
   padding-top: ${NormalizeSize(16)}px;
   padding-right: ${NormalizeSize(16)}px;
   padding-bottom: ${NormalizeSize(8)}px;
+  margin-bottom: ${NormalizeSize(80)}px;
 `;
 
 export default AnswerSurvey;
