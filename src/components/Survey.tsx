@@ -95,7 +95,7 @@ const TakeSurveyButton = styled(Button)`
 const CloseSurveyButton = styled(Button)`
   height: ${NormalizeSize(36)}px;
   justify-content: center;
-  border-radius: ${NormalizeSize(20)}px;
+  border-radius: 20px;
   margin-top: ${NormalizeSize(8)}px;
   margin-left: ${NormalizeSize(8)}px;
   margin-right: ${NormalizeSize(8)}px;
@@ -119,7 +119,7 @@ const StyledViewColumn = styled(View)`
 const Container = styled(View)`
   justify-content: center;
   background-color: #f2f2f2;
-  border-radius: ${NormalizeSize(20)}px;
+  border-radius: 20px;
   padding: ${NormalizeSize(8)}px;
   margin-bottom: ${NormalizeSize(16)}px;
 `;

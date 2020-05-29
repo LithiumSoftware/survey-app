@@ -180,7 +180,7 @@ const Container = styled.View`
   justify-content: center;
   align-items: center;
   background-color: #f2f2f2;
-  border-radius: ${NormalizeSize(20)}px;
+  border-radius: 20px;
   padding-top: ${NormalizeSize(40)}px;
   padding-bottom: ${NormalizeSize(50)}px;
   margin-bottom: ${NormalizeSize(16)}px;

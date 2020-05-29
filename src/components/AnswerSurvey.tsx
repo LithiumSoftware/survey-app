@@ -103,7 +103,7 @@ const ButtonViewRow = styled(View)`
 `;
 
 const StyledButton = styled(Button)`
-  border-radius: ${NormalizeSize(20)}px;
+  border-radius: 20px;
   width: ${NormalizeSize(146)}px;
   background-color: #ffb900;
   padding: ${NormalizeSize(4)}px;

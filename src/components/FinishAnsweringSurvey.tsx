@@ -116,14 +116,14 @@ const ButtonViewRow = styled(View)`
 `;
 
 const StyledButton = styled(Button)`
-  border-radius: ${NormalizeSize(20)}px;
+  border-radius: 20px;
   width: ${NormalizeSize(146)}px;
   background-color: #ffb900;
   padding: ${NormalizeSize(4)}px;
 `;
 
 const SubmitButton = styled(Button)`
-  border-radius: ${NormalizeSize(20)}px;
+  border-radius: 20px;
   width: ${NormalizeSize(146)}px;
   background-color: #4f4f4f;
   padding: ${NormalizeSize(4)}px;
@@ -160,7 +160,7 @@ const Container = styled(View)`
   justify-content: center;
   align-items: center;
   background-color: #f2f2f2;
-  border-radius: ${NormalizeSize(20)}px;
+  border-radius: 20px;
   padding-top: ${NormalizeSize(60)}px;
   padding-bottom: ${NormalizeSize(60)}px;
   margin-bottom: ${NormalizeSize(16)}px;
