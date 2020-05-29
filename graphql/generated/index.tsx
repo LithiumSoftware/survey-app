@@ -168,6 +168,7 @@ export type Survey = {
   questions: Array<Question>;
   opened: Scalars['Boolean'];
   published: Scalars['Boolean'];
+  answered: Scalars['Boolean'];
   createdAt?: Maybe<Scalars['Date']>;
   updatedAt?: Maybe<Scalars['Date']>;
 };
@@ -288,7 +289,7 @@ export type SurveysQuery = (
   { __typename?: 'Query' }
   & { surveys?: Maybe<Array<Maybe<(
     { __typename?: 'Survey' }
-    & Pick<Survey, 'id' | 'title' | 'opened' | 'published'>
+    & Pick<Survey, 'id' | 'title' | 'opened' | 'published' | 'answered'>
     & { questions: Array<(
       { __typename?: 'Question' }
       & Pick<Question, 'id' | 'text'>
@@ -534,6 +535,7 @@ export const SurveysDocument = gql`
     }
     opened
     published
+    answered
   }
 }
     `;

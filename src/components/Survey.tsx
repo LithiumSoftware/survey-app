@@ -29,25 +29,31 @@ const Survey = ({ navigation, survey, closeSurvey }: Props) => {
           </QuestionsDetail>
         </StyledViewColumn>
       </StyledViewRow>
-      <TakeSurveyButton
-        mode="text"
-        color="white"
-        onPress={() => {
-          isActive
-            ? navigation.navigate("AnswerSurvey", {
-                survey: survey,
-                questionIndex: 0,
-                selectedOptions: [],
-              })
-            : isClosed
-            ? navigation.navigate("Results", {
-                survey: survey,
-              })
-            : closeSurvey("active survey");
-        }}
-      >
-        {isActive ? "TAKE SURVEY" : isClosed ? "RESULTS" : "ACTIVE SURVEY"}
-      </TakeSurveyButton>
+      {survey.answered ? (
+        <AnsweredSurveyButton mode="text" color="#9a9385">
+          Already Completed
+        </AnsweredSurveyButton>
+      ) : (
+        <TakeSurveyButton
+          mode="text"
+          color="white"
+          onPress={() => {
+            isActive
+              ? navigation.navigate("AnswerSurvey", {
+                  survey: survey,
+                  questionIndex: 0,
+                  selectedOptions: [],
+                })
+              : isClosed
+              ? navigation.navigate("Results", {
+                  survey: survey,
+                })
+              : closeSurvey("active survey");
+          }}
+        >
+          {isActive ? "TAKE SURVEY" : isClosed ? "RESULTS" : "ACTIVE SURVEY"}
+        </TakeSurveyButton>
+      )}
       {isActive && (
         <CloseSurveyButton
           mode="text"
@@ -80,6 +86,16 @@ const QuestionsDetail = styled(Text)`
   font-weight: 500;
   color: rgba(0, 0, 0, 0.6);
   letter-spacing: ${NormalizeSize(1.5)}px;
+`;
+
+const AnsweredSurveyButton = styled(Button)`
+  height: ${NormalizeSize(36)}px;
+  justify-content: center;
+  background-color: #f8edd5;
+  border-radius: 25px !important;
+  margin-top: ${NormalizeSize(8)}px;
+  margin-left: ${NormalizeSize(8)}px;
+  margin-right: ${NormalizeSize(8)}px;
 `;
 
 const TakeSurveyButton = styled(Button)`
