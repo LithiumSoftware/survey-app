@@ -7,7 +7,7 @@ const FABIcon = styled(FAB)`
   margin: ${NormalizeSize(28)}px;
   right: 0px;
   bottom: 0px;
-  background-color: #ffb900;
+  background-color: #ffb900 !important;
 `;
 
 export default FABIcon;

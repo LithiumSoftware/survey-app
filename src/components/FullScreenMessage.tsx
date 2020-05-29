@@ -4,7 +4,6 @@ import { TouchableWithoutFeedback } from "react-native";
 import NormalizeSize from "../utils/NormalizeSize";
 import Title from "./Title";
 import { IconButton } from "react-native-paper";
-import MaxWidthView from "./MaxWidthView";
 
 interface Props {
   navigation: any;
@@ -14,19 +13,17 @@ interface Props {
 }
 
 const FullScreenMessage = ({ navigation, title, icon, message }: Props) => (
-  <MaxWidthView>
-    <StyledTouchableWithoutFeedback>
-      <Container>
-        <WhiteTitle>{title}</WhiteTitle>
-        <StyledIconButton
-          icon={() => {
-            return icon;
-          }}
-        />
-        <Message>{message}</Message>
-      </Container>
-    </StyledTouchableWithoutFeedback>
-  </MaxWidthView>
+  <StyledTouchableWithoutFeedback>
+    <Container>
+      <WhiteTitle>{title}</WhiteTitle>
+      <StyledIconButton
+        icon={() => {
+          return icon;
+        }}
+      />
+      <Message>{message}</Message>
+    </Container>
+  </StyledTouchableWithoutFeedback>
 );
 
 const WhiteTitle = styled(Title)`
@@ -64,6 +61,7 @@ const Container = styled.View`
 `;
 
 const StyledTouchableWithoutFeedback = styled(TouchableWithoutFeedback)`
+  max-width: 768px;
   position: absolute;
   left: 0;
   top: 0;

@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { View, Text } from "react-native";
-import { Button, IconButton, ProgressBar } from "react-native-paper";
-import { MessageBulleted } from "../assets/icons";
+import { ProgressBar } from "react-native-paper";
 import NormalizeSize from "../utils/NormalizeSize";
 
 interface Props {
@@ -25,7 +23,7 @@ const ResultsQuestion = ({
       {questionResult?.answers.map((answer: any) => (
         <StyledViewProgress>
           <StyledProgressBar
-            progress={answer.count / totalAnswers}
+            progress={(answer.count / totalAnswers).toFixed(2)}
             color="#ffc200"
           />
           <StyledViewText>

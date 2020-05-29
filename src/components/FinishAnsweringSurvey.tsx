@@ -41,12 +41,7 @@ const FinishAnsweringSurvey = ({
           <Container>
             <StyledIconButton
               color="black"
-              icon={() => (
-                <CheckCircle
-                  height={NormalizeSize(81)}
-                  width={NormalizeSize(81)}
-                />
-              )}
+              icon={() => <CheckCircle height={40} width={40} />}
             />
             <SurveyCompleted>Survey is completed</SurveyCompleted>
             <Answers>
