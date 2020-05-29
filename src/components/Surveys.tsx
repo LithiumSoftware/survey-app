@@ -19,6 +19,7 @@ import {
   SurveysDocument,
 } from "../../graphql/generated";
 import NormalizeSize from "../utils/NormalizeSize";
+import MaxWidthView from "./MaxWidthView";
 
 const Surveys = ({
   navigation,
@@ -72,7 +73,7 @@ const Surveys = ({
     );
 
     return (
-      <>
+      <MaxWidthView>
         <MainScrollableContainer>
           <Header navigation={navigation} user={userData?.me} logOut={logOut} />
           <View>
@@ -148,7 +149,7 @@ const Surveys = ({
             onPress={() => navigation.navigate("CreateSurvey")}
           />
         )}
-      </>
+      </MaxWidthView>
     );
   } else {
     return (

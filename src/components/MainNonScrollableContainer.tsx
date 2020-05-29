@@ -13,6 +13,7 @@ const MainNonScrollableContainer = styled(View)`
   padding-top: ${NormalizeSize(20)}px;
   padding-right: ${NormalizeSize(20)}px;
   padding-bottom: ${NormalizeSize(40)}px;
+  max-width: 768px;
 `;
 
 export default MainNonScrollableContainer;

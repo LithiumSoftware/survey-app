@@ -14,85 +14,88 @@ import * as Yup from "yup";
 import styled from "styled-components/native";
 import { Eye, EyeOff } from "../assets/icons";
 import logo from "../assets/lithium-logo.png";
+import MaxWidthView from "./MaxWidthView";
 
 const LogInForm = ({ submition, navigateSignUp }: LogInFormProps) => {
   const [hidePw, setHidePw] = useState(true);
 
   return (
-    <Container
-      contentContainerStyle={{
-        backgroundColor: "#fff",
-        paddingTop: 30,
-        paddingRight: 30,
-        paddingBottom: 300,
-        paddingLeft: 30,
-        minHeight: "100%",
-      }}
-    >
-      <Header />
-      <Title>Login</Title>
-      <Formik
-        initialValues={{ email: "", password: "" }}
-        validationSchema={LoginSchema}
-        onSubmit={submition}
+    <MaxWidthView>
+      <Container
+        contentContainerStyle={{
+          backgroundColor: "#fff",
+          paddingTop: 30,
+          paddingRight: 30,
+          paddingBottom: 300,
+          paddingLeft: 30,
+          minHeight: "100%",
+        }}
       >
-        {({
-          values: { email, password },
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-        }: FormikProps) => (
-          <>
-            <InputContainer>
-              <TextInput
-                label="Name or email"
-                placeholder="Name or email"
-                selectionColor="#ffb900"
-                value={email}
-                onChangeText={handleChange("email")}
-                onBlur={handleBlur("email")}
-                keyboardType="email-address"
+        <Header />
+        <Title>Login</Title>
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          validationSchema={LoginSchema}
+          onSubmit={submition}
+        >
+          {({
+            values: { email, password },
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+          }: FormikProps) => (
+            <>
+              <InputContainer>
+                <TextInput
+                  label="Name or email"
+                  placeholder="Name or email"
+                  selectionColor="#ffb900"
+                  value={email}
+                  onChangeText={handleChange("email")}
+                  onBlur={handleBlur("email")}
+                  keyboardType="email-address"
+                />
+                <StyledHelperText type="error" visible={true}>
+                  {touched.email && errors?.email ? errors?.email : ""}
+                </StyledHelperText>
+              </InputContainer>
+              <InputContainer>
+                <TextInput
+                  label="Password"
+                  placeholder="Password"
+                  selectionColor="#ffb900"
+                  secureTextEntry={hidePw}
+                  value={password}
+                  onChangeText={handleChange("password")}
+                  onBlur={handleBlur("password")}
+                />
+                <StyledHelperText type="error" visible={true}>
+                  {touched.password && errors?.password ? errors?.password : ""}
+                </StyledHelperText>
+                <StyledIconButton
+                  icon={() => (hidePw ? <EyeOff /> : <Eye />)}
+                  onPress={() => setHidePw(!hidePw)}
+                />
+              </InputContainer>
+              <Gap
+                style={{ height: Dimensions.get("window").height * 0.05 + 155 }}
               />
-              <StyledHelperText type="error" visible={true}>
-                {touched.email && errors?.email ? errors?.email : ""}
-              </StyledHelperText>
-            </InputContainer>
-            <InputContainer>
-              <TextInput
-                label="Password"
-                placeholder="Password"
-                selectionColor="#ffb900"
-                secureTextEntry={hidePw}
-                value={password}
-                onChangeText={handleChange("password")}
-                onBlur={handleBlur("password")}
-              />
-              <StyledHelperText type="error" visible={true}>
-                {touched.password && errors?.password ? errors?.password : ""}
-              </StyledHelperText>
-              <StyledIconButton
-                icon={() => (hidePw ? <EyeOff /> : <Eye />)}
-                onPress={() => setHidePw(!hidePw)}
-              />
-            </InputContainer>
-            <Gap
-              style={{ height: Dimensions.get("window").height * 0.05 + 155 }}
-            />
-            <FormButton onPress={() => handleSubmit()}>
-              <ButtonText>LOGIN</ButtonText>
-            </FormButton>
-          </>
-        )}
-      </Formik>
-      <Navigation>
-        <Text>Don't have an acount?</Text>
-        <TouchableOpacity onPress={navigateSignUp}>
-          <PrimaryText>SIGN UP</PrimaryText>
-        </TouchableOpacity>
-      </Navigation>
-    </Container>
+              <FormButton onPress={() => handleSubmit()}>
+                <ButtonText>LOGIN</ButtonText>
+              </FormButton>
+            </>
+          )}
+        </Formik>
+        <Navigation>
+          <Text>Don't have an acount?</Text>
+          <TouchableOpacity onPress={navigateSignUp}>
+            <PrimaryText>SIGN UP</PrimaryText>
+          </TouchableOpacity>
+        </Navigation>
+      </Container>
+    </MaxWidthView>
   );
 };
 
