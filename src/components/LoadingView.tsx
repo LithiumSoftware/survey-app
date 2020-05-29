@@ -2,11 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { View } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
+import MaxWidthView from "./MaxWidthView";
 
 const LoadingView = () => (
-  <CenterView>
-    <ActivityIndicator animating={true} color="#FFC200" />
-  </CenterView>
+  <MaxWidthView>
+    <CenterView>
+      <ActivityIndicator animating={true} color="#FFC200" />
+    </CenterView>
+  </MaxWidthView>
 );
 
 const CenterView = styled(View)`

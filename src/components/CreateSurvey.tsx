@@ -8,6 +8,7 @@ import HeaderBack from "./HeaderBack";
 import AddQuestion from "./AddQuestion";
 import { SurveyProps, QuestionProps } from "../screens/CreateSurvey";
 import { MessageBulleted } from "../assets/icons";
+import MaxWidthView from "./MaxWidthView";
 
 interface Props {
   error: string;
@@ -31,7 +32,7 @@ const CreateSurvey = ({ error, navigation, createSurvey }: Props) => {
   };
 
   return (
-    <>
+    <MaxWidthView>
       <MainScrollableContainer>
         <HeaderView>
           <HeaderBack navigation={navigation} />
@@ -112,7 +113,7 @@ const CreateSurvey = ({ error, navigation, createSurvey }: Props) => {
           </StyledPublishButton>
         </ButtonViewRow>
       </ButtonsAndError>
-    </>
+    </MaxWidthView>
   );
 };
 
