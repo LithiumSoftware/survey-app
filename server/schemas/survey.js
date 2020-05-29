@@ -161,7 +161,8 @@ export const resolvers = {
                   );
                 })
             );
-            return survey;
+
+            return db.survey.findByPk(survey.id);
           } else {
             throw new UserInputError(
               "Something went wrong with the creation of the survey."

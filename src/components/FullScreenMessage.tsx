@@ -15,11 +15,7 @@ interface Props {
 
 const FullScreenMessage = ({ navigation, title, icon, message }: Props) => (
   <MaxWidthView>
-    <StyledTouchableWithoutFeedback
-      onPress={() => {
-        navigation.canGoBack() && navigation.popToTop();
-      }}
-    >
+    <StyledTouchableWithoutFeedback>
       <Container>
         <WhiteTitle>{title}</WhiteTitle>
         <StyledIconButton

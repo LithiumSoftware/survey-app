@@ -3,7 +3,10 @@ import ScreenProps from "./ScreenProps";
 import CreateSurvey from "../components/CreateSurvey";
 import FullScreenMessage from "../components/FullScreenMessage";
 import { SaveAsDraft, Published } from "../assets/icons";
-import { useCreateSurveyMutation } from "../../graphql/generated";
+import {
+  useCreateSurveyMutation,
+  SurveysDocument,
+} from "../../graphql/generated";
 
 export interface SurveyProps {
   title: string;
@@ -26,10 +29,22 @@ const CreateSurveyScreen = ({ route, navigation }: ScreenProps) => {
   const [drafted, setDrafted] = useState(false);
   const [published, setPublished] = useState(false);
   const [createSurveyMutation] = useCreateSurveyMutation({});
-  const createSurvey = async (survey: SurveyProps) => {
-    return await createSurveyMutation({
+  const createSurvey = (survey: SurveyProps) =>
+    createSurveyMutation({
       variables: {
         input: survey,
+      },
+      update(cache: any, { data: { createSurvey } }) {
+        const cachedSurveys = cache.readQuery({ query: SurveysDocument });
+
+        const newSurvey = {
+          ...createSurvey,
+          opened: true,
+          answered: false,
+        };
+
+        cachedSurveys.surveys.push(newSurvey);
+        cache.writeQuery({ query: SurveysDocument, data: cachedSurveys });
       },
     })
       .then((result: any) => {
@@ -51,11 +66,10 @@ const CreateSurveyScreen = ({ route, navigation }: ScreenProps) => {
           setError("");
         }, 2500);
       });
-  };
 
   if (published) {
     setTimeout(() => {
-      navigation.navigate("Surveys");
+      navigation.navigate("Surveys", { reloadSurveys: new Date() });
     }, 4000);
 
     return (
@@ -68,7 +82,7 @@ const CreateSurveyScreen = ({ route, navigation }: ScreenProps) => {
     );
   } else if (drafted) {
     setTimeout(() => {
-      navigation.navigate("Surveys");
+      navigation.navigate("Surveys", { reloadSurveys: new Date() });
     }, 4000);
 
     return (

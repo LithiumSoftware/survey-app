@@ -27,6 +27,7 @@ const FinishAnsweringSurvey = ({
   const [error, setError] = useState(false);
   const [answered, setAnswered] = useState(false);
   const [answersCount, setAnswersCount] = useState(answers);
+
   useEffect(() => {
     setAnswersCount(answers);
   }, [answers]);
@@ -76,7 +77,7 @@ const FinishAnsweringSurvey = ({
               if (answer) {
                 setAnswered(true);
                 setTimeout(() => {
-                  navigation.navigate("Surveys");
+                  navigation.navigate("Surveys", { reloadSurveys: new Date() });
                 }, 4000);
               } else {
                 setError(true);
