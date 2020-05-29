@@ -35,6 +35,7 @@ export const typeDef = `
     questions: [Question!]!
     opened: Boolean!
     published: Boolean!
+    answered: Boolean
     createdAt: Date
     updatedAt: Date
   }
@@ -186,5 +187,21 @@ export const resolvers = {
   Survey: {
     user: (survey) => survey.getUser(),
     questions: (survey) => survey.getQuestions(),
+    answered: (survey, args, { db, currentUserId }) =>
+      survey
+        .getQuestions()
+        .then((questions) =>
+          questions[0].getOptions().then((options) =>
+            db.answer
+              .findAll({
+                where: {
+                  optionId: options[0].id,
+                  userId: currentUserId,
+                },
+              })
+              .then((data) => !!data[0].dataValues?.id)
+          )
+        )
+        .catch((err) => false),
   },
 };
