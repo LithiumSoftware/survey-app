@@ -52,37 +52,37 @@ const FinishAnsweringSurvey = ({
             </Answers>
           </Container>
         </View>
-        <View>
-          {error && (
-            <ErrorText>Please answer all the questions before submit</ErrorText>
-          )}
-          <ButtonViewRow>
-            <StyledButton
-              mode="text"
-              color="#4f4f4f"
-              onPress={() => {
-                navigation.goBack();
-              }}
-            >
-              BACK
-            </StyledButton>
-            <SubmitButton
-              mode="text"
-              color="white"
-              onPress={() => {
-                const answer = answerSurvey();
-                if (answer) {
-                  setAnswered(true);
-                } else {
-                  setError(true);
-                }
-              }}
-            >
-              SUBMIT
-            </SubmitButton>
-          </ButtonViewRow>
-        </View>
       </MainNonScrollableContainer>
+      <ButtonsAndError>
+        {error && (
+          <ErrorText>Please answer all the questions before submit</ErrorText>
+        )}
+        <ButtonViewRow>
+          <StyledButton
+            mode="text"
+            color="#4f4f4f"
+            onPress={() => {
+              navigation.goBack();
+            }}
+          >
+            BACK
+          </StyledButton>
+          <SubmitButton
+            mode="text"
+            color="white"
+            onPress={() => {
+              const answer = answerSurvey();
+              if (answer) {
+                setAnswered(true);
+              } else {
+                setError(true);
+              }
+            }}
+          >
+            SUBMIT
+          </SubmitButton>
+        </ButtonViewRow>
+      </ButtonsAndError>
       {answered && (
         <FullScreenMessage
           navigation={navigation}
@@ -99,6 +99,14 @@ const FinishAnsweringSurvey = ({
     </>
   );
 };
+
+const ButtonsAndError = styled(View)`
+  position: absolute;
+  width: 100%;
+  padding-left: ${NormalizeSize(20)}px;
+  padding-right: ${NormalizeSize(20)}px;
+  bottom: ${NormalizeSize(40)}px;
+`;
 
 const ButtonViewRow = styled(View)`
   flex-direction: row;

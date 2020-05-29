@@ -103,7 +103,10 @@ const Surveys = ({ navigation }: { navigation: any }) => {
             </Container>
           )}
         </MainScrollableContainer>
-        <FABIcon icon={() => <Plus />} onPress={() => {}} />
+        <FABIcon
+          icon={() => <Plus />}
+          onPress={() => navigation.navigate("CreateSurvey")}
+        />
       </>
     );
   } else {

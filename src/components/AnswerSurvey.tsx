@@ -52,32 +52,32 @@ const AnswerSurvey = ({
             )}
           </Container>
         </View>
-        <ButtonViewRow>
-          <StyledButton
-            mode="text"
-            color="#4f4f4f"
-            onPress={() => {
-              navigation.goBack();
-            }}
-          >
-            BACK
-          </StyledButton>
-          <StyledButton
-            mode="text"
-            color="#4f4f4f"
-            onPress={() => {
-              selectedOptions[questionIndex] = selectedOption;
-              navigation.push("AnswerSurvey", {
-                survey: survey,
-                questionIndex: questionIndex + 1,
-                selectedOptions: selectedOptions,
-              });
-            }}
-          >
-            NEXT
-          </StyledButton>
-        </ButtonViewRow>
       </MainNonScrollableContainer>
+      <ButtonViewRow>
+        <StyledButton
+          mode="text"
+          color="#4f4f4f"
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          BACK
+        </StyledButton>
+        <StyledButton
+          mode="text"
+          color="#4f4f4f"
+          onPress={() => {
+            selectedOptions[questionIndex] = selectedOption;
+            navigation.push("AnswerSurvey", {
+              survey: survey,
+              questionIndex: questionIndex + 1,
+              selectedOptions: selectedOptions,
+            });
+          }}
+        >
+          NEXT
+        </StyledButton>
+      </ButtonViewRow>
     </>
   );
 };
@@ -92,6 +92,11 @@ const StyledViewRow = styled(View)`
 
 const ButtonViewRow = styled(View)`
   flex-direction: row;
+  position: absolute;
+  width: 100%;
+  padding-left: ${NormalizeSize(20)}px;
+  padding-right: ${NormalizeSize(20)}px;
+  bottom: ${NormalizeSize(40)}px;
   justify-content: space-between;
   align-items: center;
   height: ${NormalizeSize(41)}px;

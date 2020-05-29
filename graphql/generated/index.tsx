@@ -206,6 +206,27 @@ export type CreateAnswerMutation = (
   ) }
 );
 
+export type CreateSurveyMutationVariables = {
+  input: CreateSurveyInput;
+};
+
+
+export type CreateSurveyMutation = (
+  { __typename?: 'Mutation' }
+  & { createSurvey: (
+    { __typename?: 'Survey' }
+    & Pick<Survey, 'id' | 'title' | 'published'>
+    & { questions: Array<(
+      { __typename?: 'Question' }
+      & Pick<Question, 'id' | 'text'>
+      & { options: Array<(
+        { __typename?: 'Option' }
+        & Pick<Option, 'id' | 'text'>
+      )> }
+    )> }
+  ) }
+);
+
 export type SignupMutationVariables = {
   username: Scalars['String'];
   fullname: Scalars['String'];
@@ -326,6 +347,48 @@ export function useCreateAnswerMutation(baseOptions?: ApolloReactHooks.MutationH
 export type CreateAnswerMutationHookResult = ReturnType<typeof useCreateAnswerMutation>;
 export type CreateAnswerMutationResult = ApolloReactCommon.MutationResult<CreateAnswerMutation>;
 export type CreateAnswerMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateAnswerMutation, CreateAnswerMutationVariables>;
+export const CreateSurveyDocument = gql`
+    mutation CreateSurvey($input: CreateSurveyInput!) {
+  createSurvey(input: $input) {
+    id
+    title
+    questions {
+      id
+      text
+      options {
+        id
+        text
+      }
+    }
+    published
+  }
+}
+    `;
+export type CreateSurveyMutationFn = ApolloReactCommon.MutationFunction<CreateSurveyMutation, CreateSurveyMutationVariables>;
+
+/**
+ * __useCreateSurveyMutation__
+ *
+ * To run a mutation, you first call `useCreateSurveyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSurveyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSurveyMutation, { data, loading, error }] = useCreateSurveyMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateSurveyMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateSurveyMutation, CreateSurveyMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateSurveyMutation, CreateSurveyMutationVariables>(CreateSurveyDocument, baseOptions);
+      }
+export type CreateSurveyMutationHookResult = ReturnType<typeof useCreateSurveyMutation>;
+export type CreateSurveyMutationResult = ApolloReactCommon.MutationResult<CreateSurveyMutation>;
+export type CreateSurveyMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateSurveyMutation, CreateSurveyMutationVariables>;
 export const SignupDocument = gql`
     mutation Signup($username: String!, $fullname: String!, $email: String!, $password: String!) {
   signedUser(input: {username: $username, fullName: $fullname, email: $email, password: $password}) {

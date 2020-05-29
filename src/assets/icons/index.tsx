@@ -12,7 +12,7 @@ interface IconProps {
 const Icon = ({
   fill,
   path,
-  width = 24,
+  width = 30,
   height = 24,
   viewBox = "0 0 22 22",
 }: IconProps) => (
@@ -27,8 +27,14 @@ export const Plus = ({ fill = "#757575" }: IconProps) => (
   <Icon fill={fill} path="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
 );
 
-export const MessageBulleted = ({ fill = "#757575" }: IconProps) => (
+export const MessageBulleted = ({
+  height = 24,
+  width = 30,
+  fill = "#757575",
+}: IconProps) => (
   <Icon
+    height={height}
+    width={width}
     fill={fill}
     path="M20,2H4A2,2 0 0,0 2,4V22L6,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M8,14H6V12H8V14M8,11H6V9H8V11M8,8H6V6H8V8M15,14H10V12H15V14M18,11H10V9H18V11M18,8H10V6H18V8Z"
   />
@@ -86,6 +92,33 @@ export const AnswerSuccess = ({
     width={width}
     fill={fill}
     path="M9,22A1,1 0 0,1 8,21V18H4A2,2 0 0,1 2,16V4C2,2.89 2.9,2 4,2H20A2,2 0 0,1 22,4V16A2,2 0 0,1 20,18H13.9L10.2,21.71C10,21.9 9.75,22 9.5,22V22H9M10,15L18,7L16.59,5.58L10,12.17L7.41,9.59L6,11L10,15Z"
+  />
+);
+
+export const SaveAsDraft = ({ height, width, fill = "#FFC200" }: IconProps) => (
+  <Icon
+    height={height}
+    width={width}
+    fill={fill}
+    path="M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z"
+  />
+);
+
+export const Published = ({ height, width, fill = "#27AE60" }: IconProps) => (
+  <Icon
+    height={height}
+    width={width}
+    fill={fill}
+    path="M5,4V6H19V4H5M5,14H9V20H15V14H19L12,7L5,14Z"
+  />
+);
+
+export const Submited = ({ height, width, fill = "#27AE60" }: IconProps) => (
+  <Icon
+    height={height}
+    width={width}
+    fill={fill}
+    path="M2,21L23,12L2,3V10L17,12L2,14V21Z"
   />
 );
 
