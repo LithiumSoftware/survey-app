@@ -44,7 +44,6 @@ const CreateSurvey = ({ navigation, createSurvey }: Props) => {
             setSurveyTitle(text);
           }}
         />
-        <Text>{JSON.stringify(questions)}</Text>
         {questions.map((question: QuestionProps, index: number) => (
           <AddQuestion
             key={index}
