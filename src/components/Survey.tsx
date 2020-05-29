@@ -8,9 +8,10 @@ import NormalizeSize from "../utils/NormalizeSize";
 interface Props {
   navigation: any;
   survey: any;
+  closeSurvey: (id: string) => void;
 }
 
-const Survey = ({ navigation, survey }: Props) => {
+const Survey = ({ navigation, survey, closeSurvey }: Props) => {
   const isActive = survey.published === true && survey.opened === true;
   const isClosed = survey.published === true && survey.opened === false;
 
@@ -42,13 +43,19 @@ const Survey = ({ navigation, survey }: Props) => {
             ? navigation.navigate("Results", {
                 survey: survey,
               })
-            : console.log("active survey");
+            : closeSurvey("active survey");
         }}
       >
         {isActive ? "TAKE SURVEY" : isClosed ? "RESULTS" : "ACTIVE SURVEY"}
       </TakeSurveyButton>
       {isActive && (
-        <CloseSurveyButton mode="text" color="black" onPress={() => {}}>
+        <CloseSurveyButton
+          mode="text"
+          color="black"
+          onPress={() => {
+            closeSurvey(survey.id);
+          }}
+        >
           CLOSE SURVEY
         </CloseSurveyButton>
       )}
@@ -79,7 +86,7 @@ const TakeSurveyButton = styled(Button)`
   height: ${NormalizeSize(36)}px;
   justify-content: center;
   background-color: #ffb900;
-  border-radius: ${NormalizeSize(20)}px;
+  border-radius: 25px !important;
   margin-top: ${NormalizeSize(8)}px;
   margin-left: ${NormalizeSize(8)}px;
   margin-right: ${NormalizeSize(8)}px;

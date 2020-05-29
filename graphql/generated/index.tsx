@@ -66,7 +66,7 @@ export type Mutation = {
   _empty?: Maybe<Scalars['String']>;
   createAnswer: Answer;
   createSurvey: Survey;
-  toggleOpen: Scalars['Boolean'];
+  closeSurvey: Scalars['Boolean'];
   signedUser?: Maybe<Scalars['String']>;
   loggedUser?: Maybe<Scalars['String']>;
 };
@@ -82,7 +82,7 @@ export type MutationCreateSurveyArgs = {
 };
 
 
-export type MutationToggleOpenArgs = {
+export type MutationCloseSurveyArgs = {
   id: Scalars['ID'];
 };
 
@@ -185,6 +185,16 @@ export type User = {
   createdAt?: Maybe<Scalars['Date']>;
   updatedAt?: Maybe<Scalars['Date']>;
 };
+
+export type CloseSurveyMutationVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type CloseSurveyMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'closeSurvey'>
+);
 
 export type CreateAnswerMutationVariables = {
   optionId: Scalars['ID'];
@@ -291,6 +301,36 @@ export type SurveysQuery = (
 );
 
 
+export const CloseSurveyDocument = gql`
+    mutation CloseSurvey($id: ID!) {
+  closeSurvey(id: $id)
+}
+    `;
+export type CloseSurveyMutationFn = ApolloReactCommon.MutationFunction<CloseSurveyMutation, CloseSurveyMutationVariables>;
+
+/**
+ * __useCloseSurveyMutation__
+ *
+ * To run a mutation, you first call `useCloseSurveyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCloseSurveyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [closeSurveyMutation, { data, loading, error }] = useCloseSurveyMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useCloseSurveyMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CloseSurveyMutation, CloseSurveyMutationVariables>) {
+        return ApolloReactHooks.useMutation<CloseSurveyMutation, CloseSurveyMutationVariables>(CloseSurveyDocument, baseOptions);
+      }
+export type CloseSurveyMutationHookResult = ReturnType<typeof useCloseSurveyMutation>;
+export type CloseSurveyMutationResult = ApolloReactCommon.MutationResult<CloseSurveyMutation>;
+export type CloseSurveyMutationOptions = ApolloReactCommon.BaseMutationOptions<CloseSurveyMutation, CloseSurveyMutationVariables>;
 export const CreateAnswerDocument = gql`
     mutation CreateAnswer($optionId: ID!) {
   createAnswer(input: {optionId: $optionId}) {
