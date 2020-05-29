@@ -58,7 +58,11 @@ const AddQuestion = ({
           />
         ))}
         <ButtonViewRow>
-          <StyledSaveButton
+          <StyledDeleteQuestionButton
+            labelStyle={{
+              fontSize: NormalizeSize(10),
+              letterSpacing: NormalizeSize(0.75),
+            }}
             mode="text"
             color="#828282"
             onPress={() => {
@@ -66,8 +70,12 @@ const AddQuestion = ({
             }}
           >
             DELETE QUESTION
-          </StyledSaveButton>
-          <StyledPublishButton
+          </StyledDeleteQuestionButton>
+          <StyledAddOptionButton
+            labelStyle={{
+              fontSize: NormalizeSize(10),
+              letterSpacing: NormalizeSize(0.75),
+            }}
             mode="text"
             color="white"
             onPress={() => {
@@ -77,7 +85,7 @@ const AddQuestion = ({
             }}
           >
             ADD OPTION
-          </StyledPublishButton>
+          </StyledAddOptionButton>
         </ButtonViewRow>
       </Container>
     </>
@@ -88,20 +96,24 @@ const ButtonViewRow = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding-left: ${NormalizeSize(8)}px;
+  padding-right: ${NormalizeSize(8)}px;
   height: ${NormalizeSize(41)}px;
 `;
 
-const StyledSaveButton = styled(Button)`
+const StyledDeleteQuestionButton = styled(Button)`
   border-radius: 20px;
-  width: ${NormalizeSize(146)}px;
-  padding: ${NormalizeSize(4)}px;
+  width: ${NormalizeSize(140)}px;
+  padding-top: ${NormalizeSize(4)}px;
+  padding-bottom: ${NormalizeSize(4)}px;
 `;
 
-const StyledPublishButton = styled(Button)`
+const StyledAddOptionButton = styled(Button)`
   border-radius: 20px;
-  width: ${NormalizeSize(146)}px;
+  width: ${NormalizeSize(140)}px;
   background-color: #ffb900;
-  padding: ${NormalizeSize(4)}px;
+  padding-top: ${NormalizeSize(4)}px;
+  padding-bottom: ${NormalizeSize(4)}px;
 `;
 
 const StyledViewRow = styled.View`
