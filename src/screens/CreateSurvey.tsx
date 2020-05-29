@@ -54,6 +54,10 @@ const CreateSurveyScreen = ({ route, navigation }: ScreenProps) => {
   };
 
   if (published) {
+    setTimeout(() => {
+      navigation.navigate("Surveys");
+    }, 4000);
+
     return (
       <FullScreenMessage
         navigation={navigation}
@@ -63,6 +67,10 @@ const CreateSurveyScreen = ({ route, navigation }: ScreenProps) => {
       />
     );
   } else if (drafted) {
+    setTimeout(() => {
+      navigation.navigate("Surveys");
+    }, 4000);
+
     return (
       <FullScreenMessage
         navigation={navigation}

@@ -74,6 +74,9 @@ const FinishAnsweringSurvey = ({
               const answer = answerSurvey();
               if (answer) {
                 setAnswered(true);
+                setTimeout(() => {
+                  navigation.navigate("Surveys");
+                }, 4000);
               } else {
                 setError(true);
               }
