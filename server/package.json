@@ -13,7 +13,7 @@
     "create_migration": "npx sequelize --options-path=.sequelizerc migration:create --name"
   },
   "dependencies": {
-    "apollo-server-micro": "^2.13.1",
+    "apollo-server-micro": "^2.14.2",
     "bcrypt": "^4.0.1",
     "cors": "^2.8.5",
     "jsonwebtoken": "^8.5.1",
